@@ -1,0 +1,20 @@
+{
+  "name": "x-sense-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "X-Sense 安室智能官方网站示例：智慧安防 · 守护生命与健康安全。",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "x-sense",
+    "安室智能",
+    "智慧安防",
+    "smoke-detector",
+    "iot"
+  ],
+  "author": "X-Sense",
+  "license": "MIT",
+  "dependencies": {}
+}
+

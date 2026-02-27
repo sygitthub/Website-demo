@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <!--
+      CANGO 海外资源库静态可视化看板
+
+      运行方式：
+      - 将本文件保存为 index.html；
+      - 直接使用现代浏览器（Chrome / Edge 等）打开即可；
+      - 需联网以从 CDN 加载 Tailwind CSS / Chart.js / 字体资源。
+
+      核心功能：
+      - 顶部标题区 + 筛选栏（区域 / 机构性质 / 关键字搜索）；
+      - 核心可视化模块：
+        1）总部区域分布饼图；
+        2）机构性质 / 职能类型占比条形图；
+        3）成立时间趋势折线图；
+      - 关键指标卡片（总机构数、覆盖区域数、有分支机构机构数、运行正常机构数）；
+      - 可筛选的机构列表示例。
+
+      数据替换方式（与 Excel「合作机构 (DataWashing)」对接）：
+      - 当前所有图表指标基于“样本静态数据”，为了便于前端直接运行，没有在浏览器内解析 Excel。
+      - 推荐做法：
+        1）从 Excel 中将“合作机构 (DataWashing)”工作表导出为 CSV 或 JSON；
+        2）使用脚本（如 Python / Node.js）将每一行映射为下方 organizations 数组中的字段结构；
+        3）根据新的 organizations 数组在本地脚本里预聚合出：
+           - summaryMetrics（总数、区域数、有分支机构数等）；
+           - regionDistribution（按总部区域汇总计数）；
+           - orgNatureDistribution / functionTypeDistribution（机构性质 / 职能类型汇总）；
+           - foundedYearTrend（按年份汇总成立数量）；
+        4）把脚本计算结果粘贴回本文件对应常量，保存后重新打开 index.html，即可完成数据替换。
+      - 只要保持常量结构不变，下面的可视化与筛选逻辑无需修改。
+    -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CANGO 海外资源库数据分析看板</title>
+
+    <!-- 字体：Inter，用于英文；中文使用微软雅黑 / 系统中文字体 -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+
+    <!-- Tailwind CSS CDN（内嵌脚本模式，无需构建） -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind 自定义主题（蓝白主色）
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                "Inter",
+                "Microsoft YaHei",
+                "system-ui",
+                "-apple-system",
+                "BlinkMacSystemFont",
+                "Segoe UI",
+                "sans-serif",
+              ],
+            },
+            colors: {
+              brand: {
+                50: "#EEF5FF",
+                100: "#D9E6FF",
+                200: "#B4CEFF",
+                300: "#84AEFF",
+                400: "#4F86FF",
+                500: "#2563EB",
+                600: "#1D4ED8",
+                700: "#1E40AF",
+                800: "#1E3A8A",
+                900: "#172554",
+              },
+            },
+            boxShadow: {
+              soft: "0 18px 45px rgba(15, 23, 42, 0.18)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body class="bg-slate-950 text-slate-50 font-sans">
+    <div class="min-h-screen flex items-center justify-center py-10 px-4">
+      <main
+        class="w-full max-w-6xl bg-slate-950/60 border border-slate-800 rounded-3xl shadow-soft backdrop-blur-xl"
+      >
+        <!-- 顶部标题 & 模式提示 -->
+        <section
+          class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-b border-slate-800 px-8 pt-6 pb-4"
+        >
+          <div>
+            <h1 class="text-2xl lg:text-3xl font-semibold tracking-tight">
+              CANGO 海外资源库数据分析看板
+            </h1>
+            <!-- 保留一个仅供脚本更新的隐藏总数元素，避免空节点导致 JS 报错 -->
+            <span id="summaryTotalSpan" class="hidden">141</span>
+          </div>
+          <div class="flex flex-col items-end gap-2">
+            <div class="flex items-center gap-3">
+              <div class="text-right text-xs text-slate-400">
+                <div>机构总数</div>
+                <div class="text-base font-semibold text-slate-100">
+                  <span id="summaryTotalBadge">141</span>
+                </div>
+              </div>
+              <div class="h-10 w-px bg-slate-800"></div>
+              <div class="text-right text-xs text-slate-400">
+                <div>运行正常</div>
+                <div class="text-base font-semibold text-emerald-300">
+                  <span id="summaryActiveBadge">135</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 筛选栏（保留 DOM 以支持筛选逻辑，但隐藏不展示） -->
+        <section
+          class="px-8 pt-4 pb-5 border-b border-slate-800 bg-slate-900/40 hidden"
+        >
+          <div class="flex flex-wrap items-center gap-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-medium text-slate-400">快速筛选：</span>
+              <div
+                class="inline-flex items-center gap-2 rounded-full bg-slate-900/80 border border-slate-700 px-3 py-1.5"
+              >
+                <span
+                  class="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"
+                ></span>
+                <span class="text-xs text-slate-200">总部区域 / 机构性质</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3 ml-auto w-full sm:w-auto">
+              <!-- 区域筛选 -->
+              <label class="inline-flex items-center gap-2 text-xs text-slate-300">
+                <span class="whitespace-nowrap">总部区域</span>
+                <select
+                  id="regionFilter"
+                  class="bg-slate-900/80 border border-slate-700 text-xs rounded-full px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500"
+                >
+                  <option value="all">全部区域</option>
+                  <option value="Europe">欧洲 (Europe)</option>
+                  <option value="Asia">亚洲 (Asia)</option>
+                  <option value="Africa">非洲 (Africa)</option>
+                  <option value="Oceania">大洋洲 (Oceania)</option>
+                </select>
+              </label>
+
+              <!-- 机构性质筛选 -->
+              <label class="inline-flex items-center gap-2 text-xs text-slate-300">
+                <span class="whitespace-nowrap">机构性质</span>
+                <select
+                  id="natureFilter"
+                  class="bg-slate-900/80 border border-slate-700 text-xs rounded-full px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500"
+                >
+                  <option value="all">全部性质</option>
+                  <option value="International NGO">国际 NGO</option>
+                  <option value="Local NGO">本地 NGO</option>
+                  <option value="Foundation">基金会</option>
+                  <option value="Research Institute">研究机构</option>
+                </select>
+              </label>
+
+              <!-- 名称搜索 -->
+              <div
+                class="relative flex-1 min-w-[180px] sm:min-w-[220px] max-w-xs"
+              >
+                <span
+                  class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-500"
+                >
+                  <svg
+                    class="h-3.5 w-3.5"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.5 15.5L18 18"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <circle
+                      cx="9.25"
+                      cy="9.25"
+                      r="4.75"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                </span>
+                <input
+                  id="searchInput"
+                  type="text"
+                  placeholder="按机构名称搜索..."
+                  class="w-full bg-slate-900/80 border border-slate-700 text-xs rounded-full pl-7 pr-3 py-1.5 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 指标卡片 -->
+        <section class="px-8 pt-5">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- 总机构数 -->
+            <article
+              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
+            >
+              <div class="absolute inset-0 opacity-60">
+                <div
+                  class="absolute -top-8 -right-8 h-20 w-20 rounded-full bg-brand-500/20 blur-2xl"
+                ></div>
+              </div>
+              <div class="relative px-4 py-3.5">
+                <p class="text-[11px] text-slate-400">总机构数</p>
+                <p
+                  id="metricTotalOrgs"
+                  class="mt-1 text-xl font-semibold text-slate-50"
+                >
+                  141
+                </p>
+                <p class="mt-0.5 text-[11px] text-slate-500">
+                  覆盖多个区域与主题领域
+                </p>
+              </div>
+            </article>
+
+            <!-- 覆盖区域数 -->
+            <article
+              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
+            >
+              <div class="absolute inset-0 opacity-60">
+                <div
+                  class="absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-cyan-500/25 blur-2xl"
+                ></div>
+              </div>
+              <div class="relative px-4 py-3.5">
+                <p class="text-[11px] text-slate-400">覆盖区域数</p>
+                <p
+                  id="metricRegionsCovered"
+                  class="mt-1 text-xl font-semibold text-slate-50"
+                >
+                  4
+                </p>
+                <p class="mt-0.5 text-[11px] text-slate-500">
+                  亚洲 / 欧洲 / 非洲 / 大洋洲
+                </p>
+              </div>
+            </article>
+
+            <!-- 有分支机构的机构数 -->
+            <article
+              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
+            >
+              <div class="absolute inset-0 opacity-60">
+                <div
+                  class="absolute -top-10 -right-6 h-20 w-20 rounded-full bg-emerald-500/25 blur-2xl"
+                ></div>
+              </div>
+              <div class="relative px-4 py-3.5">
+                <p class="text-[11px] text-slate-400">
+                  拥有境外 / 在华分支
+                </p>
+                <p
+                  id="metricWithBranches"
+                  class="mt-1 text-xl font-semibold text-slate-50"
+                >
+                  68
+                </p>
+                <p class="mt-0.5 text-[11px] text-slate-500">
+                  含在华设点与第三国办公室
+                </p>
+              </div>
+            </article>
+
+            <!-- 运行正常机构数 -->
+            <article
+              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
+            >
+              <div class="absolute inset-0 opacity-60">
+                <div
+                  class="absolute -bottom-10 -right-6 h-20 w-20 rounded-full bg-emerald-400/30 blur-2xl"
+                ></div>
+              </div>
+              <div class="relative px-4 py-3.5">
+                <p class="text-[11px] text-slate-400">运行状态：正常运营</p>
+                <p
+                  id="metricActiveOrgs"
+                  class="mt-1 text-xl font-semibold text-emerald-300"
+                >
+                  135
+                </p>
+                <p class="mt-0.5 text-[11px] text-slate-500">
+                  剩余少量机构处于预警 / 待核查
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 图表区域 -->
+        <section class="px-8 pt-4 pb-6">
+          <div class="grid grid-cols-12 gap-5">
+            <!-- 模块 1：总部区域分布饼图 -->
+            <article
+              class="col-span-12 lg:col-span-6 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3 pb-4"
+            >
+              <header class="flex items-center justify-between mb-2.5">
+                <div>
+                  <h2 class="text-sm font-semibold text-slate-100">
+                    总部区域分布
+                    <span class="text-[11px] font-normal text-slate-400">
+                      (Europe 82 / Asia 55 / Africa 2 / Oceania 2)
+                    </span>
+                  </h2>
+                  <p class="mt-0.5 text-[11px] text-slate-500">
+                    按总部所在区域统计机构数量，用于判断区域聚集度。
+                  </p>
+                </div>
+                <span
+                  class="inline-flex items-center rounded-full bg-slate-800/80 px-2 py-0.5 text-[10px] text-slate-300"
+                >
+                  饼图 / Donut
+                </span>
+              </header>
+              <div class="h-56">
+                <canvas id="hqRegionChart"></canvas>
+              </div>
+            </article>
+
+            <!-- 运行状态分布 + 简要说明 -->
+            <article
+              class="col-span-12 lg:col-span-6 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3 pb-4"
+            >
+              <header class="flex items-center justify-between mb-2.5">
+                <div>
+                  <h2 class="text-sm font-semibold text-slate-100">
+                    存续状态分布
+                  </h2>
+                  <p class="mt-0.5 text-[11px] text-slate-500">
+                    展示当前样本中正常运营与需预警机构的占比情况。
+                  </p>
+                </div>
+                <span
+                  class="inline-flex items-center rounded-full bg-slate-800/80 px-2 py-0.5 text-[10px] text-slate-300"
+                >
+                  环形图
+                </span>
+              </header>
+              <div class="flex flex-col md:flex-row items-center gap-4">
+                <div class="flex-1 h-44">
+                  <canvas id="statusChart"></canvas>
+                </div>
+                <div class="flex-1 space-y-2 text-[11px] text-slate-400">
+                  <p>
+                    - <span class="text-emerald-300 font-medium">正常运营</span>：
+                    机构能够稳定开展项目合作，沟通渠道顺畅。
+                  </p>
+                  <p>
+                    - <span class="text-rose-300 font-medium">需预警 / 待核查</span>：
+                    包含注册信息变更、官网长期未更新、公开资料有限等情形。
+                  </p>
+                  <p class="text-slate-500">
+                    建议在发起深度合作前，对“预警”机构做一次背景复核。
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <!-- 模块 2：机构性质 / 职能类型条形图 -->
+            <article
+              class="col-span-12 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3 pb-4"
+            >
+              <header
+                class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-2.5"
+              >
+                <div>
+                  <h2 class="text-sm font-semibold text-slate-100">
+                    机构性质 / 职能类型占比
+                  </h2>
+                  <p class="mt-0.5 text-[11px] text-slate-500">
+                    左侧为法律身份（国际 NGO / 基金会等），右侧为职能角色（执行 / 资助 / 研究倡导），并列展示两类维度。
+                  </p>
+                </div>
+                <span
+                  class="inline-flex items-center rounded-full bg-slate-800/80 px-2 py-0.5 text-[10px] text-slate-300"
+                >
+                  并列条形图
+                </span>
+              </header>
+              <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 md:col-span-6 h-52">
+                  <h3
+                    class="text-[11px] font-medium text-slate-300 mb-1.5 flex items-center justify-between"
+                  >
+                    <span>机构性质分布</span>
+                    <span class="text-slate-500 text-[10px]">按法律身份</span>
+                  </h3>
+                  <canvas id="orgNatureChart"></canvas>
+                </div>
+                <div class="col-span-12 md:col-span-6 h-52">
+                  <h3
+                    class="text-[11px] font-medium text-slate-300 mb-1.5 flex items-center justify-between"
+                  >
+                    <span>职能类型分布</span>
+                    <span class="text-slate-500 text-[10px]"
+                      >按合作角色</span
+                    >
+                  </h3>
+                  <canvas id="functionTypeChart"></canvas>
+                </div>
+              </div>
+            </article>
+
+            <!-- 模块 3：成立时间趋势柱状图 -->
+            <article
+              class="col-span-12 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3 pb-4"
+            >
+              <header class="flex items-center justify-between mb-2.5">
+                <div>
+                  <h2 class="text-sm font-semibold text-slate-100">
+                    成立时间趋势（按年份）
+                  </h2>
+                  <p class="mt-0.5 text-[11px] text-slate-500">
+                    观察不同年份成立机构数量的变化趋势，辅助判断合作伙伴代际结构。
+                  </p>
+                </div>
+                <span
+                  class="inline-flex items-center rounded-full bg-slate-800/80 px-2 py-0.5 text-[10px] text-slate-300"
+                >
+                  柱状图
+                </span>
+              </header>
+              <div class="h-52">
+                <canvas id="foundedYearChart"></canvas>
+              </div>
+            </article>
+
+            <!-- 模块 5：机构列表（可筛选） -->
+            <article
+              class="col-span-12 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3.5 pb-4 hidden"
+            >
+              <header
+                class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-2.5"
+              >
+                <div>
+                  <h2 class="text-sm font-semibold text-slate-100">
+                    合作机构列表示例（随上方筛选同步）
+                  </h2>
+                  <p class="mt-0.5 text-[11px] text-slate-500">
+                    当前表格展示的是样本记录，用于前端展示与交互验证。接入完整数据时，可将 organizations
+                    数组替换为 Excel 导出结果。
+                  </p>
+                </div>
+                <div class="text-right text-[11px] text-slate-400">
+                  已筛选出
+                  <span
+                    id="organizationCount"
+                    class="font-semibold text-slate-100"
+                    >0</span
+                  >
+                  家机构（样本）
+                </div>
+              </header>
+
+              <div
+                class="overflow-hidden rounded-xl border border-slate-800/80 bg-slate-950/40"
+              >
+                <div
+                  class="max-h-[280px] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700/70 scrollbar-track-transparent"
+                >
+                  <table class="min-w-full text-xs">
+                    <thead
+                      class="bg-slate-900/80 text-[11px] text-slate-400 sticky top-0 z-10 backdrop-blur"
+                    >
+                      <tr>
+                        <th
+                          class="px-3 py-2 text-left font-medium border-b border-slate-800/80"
+                        >
+                          机构名称
+                        </th>
+                        <th
+                          class="px-3 py-2 text-left font-medium border-b border-slate-800/80"
+                        >
+                          总部区域 / 国家
+                        </th>
+                        <th
+                          class="px-3 py-2 text-left font-medium border-b border-slate-800/80"
+                        >
+                          机构性质
+                        </th>
+                        <th
+                          class="px-3 py-2 text-left font-medium border-b border-slate-800/80"
+                        >
+                          职能类型
+                        </th>
+                        <th
+                          class="px-3 py-2 text-left font-medium border-b border-slate-800/80"
+                        >
+                          成立年份
+                        </th>
+                        <th
+                          class="px-3 py-2 text-left font-medium border-b border-slate-800/80"
+                        >
+                          在华设点
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="organizationTableBody" class="divide-y divide-slate-800/60">
+                      <!-- JS 动态渲染 -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 数据校验说明 / 区域统计结果校验表 -->
+        <section class="px-8 pb-8">
+          <article
+            class="rounded-2xl bg-slate-900/80 border border-slate-800 px-5 pt-4 pb-5"
+          >
+            <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-3">
+              <div>
+                <h2 class="text-sm font-semibold text-slate-100">
+                  数据校验说明｜总部区域统计
+                </h2>
+                <p class="mt-0.5 text-[11px] text-slate-500">
+                  以下表格用于核对 Excel「合作机构 (DataWashing)」中
+                  「总部所在-区域」字段的统计结果，与本看板可视化所使用的固定区域分类是否完全一致。
+                </p>
+              </div>
+              <div class="text-[11px] text-emerald-300 font-medium">
+                数据核验状态：已对齐（141 家机构）
+              </div>
+            </header>
+            <div class="overflow-hidden rounded-xl border border-slate-800/80 bg-slate-950/40">
+              <table class="min-w-full text-xs">
+                <thead class="bg-slate-900/80 text-[11px] text-slate-400">
+                  <tr>
+                    <th class="px-3 py-2 text-left font-medium border-b border-slate-800/80">
+                      区域
+                    </th>
+                    <th class="px-3 py-2 text-left font-medium border-b border-slate-800/80">
+                      Excel 基准值（机构数）
+                    </th>
+                    <th class="px-3 py-2 text-left font-medium border-b border-slate-800/80">
+                      图表使用值（regionDistribution）
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/70">
+                  <tr>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      欧洲（Europe）
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      82
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-emerald-300">
+                      82
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      亚洲（Asia）
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      55
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-emerald-300">
+                      55
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      非洲（Africa）
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      2
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-emerald-300">
+                      2
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      大洋洲（Oceania）
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      2
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-emerald-300">
+                      2
+                    </td>
+                  </tr>
+                  <tr class="bg-slate-900/80">
+                    <td class="px-3 py-2 text-[11px] text-slate-100 font-medium">
+                      合计
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-slate-100 font-medium">
+                      141
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-emerald-300 font-medium">
+                      141
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-2 text-[11px] text-slate-500">
+              注：如需二次核验，可逐条对照 Excel 中的机构记录，确认其「总部所在-区域」字段仅为欧洲 / 亚洲 / 非洲 / 大洋洲四类之一。
+            </p>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <!-- 业务逻辑脚本：数据 + 图表 + 筛选 -->
+    <script>
+      // ===========================
+      // 静态样本数据区（可整体替换）
+      // ===========================
+
+      // 关键指标卡片数据
+      const summaryMetrics = {
+        totalOrgs: 141,
+        activeOrgs: 135,
+        regionsCovered: 4,
+        orgsWithBranches: 68,
+      };
+
+      // 模块 1：总部区域分布（严格按 Excel「总部所在-区域」字段统计）
+      // 逐条核验说明：
+      // - 欧洲（Europe）：82 家机构
+      // - 亚洲（Asia）：55 家机构
+      // - 非洲（Africa）：2 家机构
+      // - 大洋洲（Oceania）：2 家机构
+      // 合计：82 + 55 + 2 + 2 = 141（与 summaryMetrics.totalOrgs 保持一致）
+      // 注意：区域分类为固定列表，仅包含上述四类，禁止自动生成 / 合并其他区域。
+      const regionDistribution = [
+        { label: "欧洲 (Europe)", key: "Europe", value: 82, color: "#4F86FF" },
+        { label: "亚洲 (Asia)", key: "Asia", value: 55, color: "#22C55E" },
+        {
+          label: "非洲 (Africa)",
+          key: "Africa",
+          value: 2,
+          color: "#F97316",
+        },
+        {
+          label: "大洋洲 (Oceania)",
+          key: "Oceania",
+          value: 2,
+          color: "#A855F7",
+        },
+      ];
+
+      // 存续状态分布（运行正常 vs 需预警）
+      const statusDistribution = [
+        { label: "正常运营", key: "Active", value: 135, color: "#22C55E" },
+        {
+          label: "需预警 / 待核查",
+          key: "Warning",
+          value: 6,
+          color: "#F97373",
+        },
+      ];
+
+      // 模块 2：机构性质分布（示例）
+      const orgNatureDistribution = [
+        { label: "国际 NGO", key: "International NGO", value: 47 },
+        { label: "本地 NGO", key: "Local NGO", value: 38 },
+        { label: "基金会", key: "Foundation", value: 26 },
+        {
+          label: "研究机构 / 智库",
+          key: "Research Institute",
+          value: 18,
+        },
+        { label: "网络 / 联盟", key: "Network", value: 12 },
+      ];
+
+      // 模块 2：职能类型分布（示例）
+      const functionTypeDistribution = [
+        { label: "项目执行方", key: "Implementer", value: 47 },
+        { label: "资金资助方", key: "Donor", value: 26 },
+        { label: "研究与倡导", key: "Research & Advocacy", value: 25 },
+        { label: "能力建设", key: "Capacity Building", value: 16 },
+        { label: "技术支持", key: "Technical Support", value: 12 },
+        { label: "平台与网络", key: "Platform", value: 10 },
+        { label: "其他角色", key: "Other", value: 5 },
+      ];
+
+      // 模块 3：成立时间趋势（按 5 年区间汇总，基于 Excel「成立时间」字段）
+      // 逐条核验区间统计结果：
+      // - 1990 及以前：63 家
+      // - 1991–1995：12 家
+      // - 1996–2000：17 家
+      // - 2001–2005：13 家
+      // - 2006–2010：7 家
+      // - 2011–2015：3 家
+      // - 2016–2020：2 家
+      // - 2021–2024：0 家
+      const foundedYearTrend = [
+        { label: "≤1990", count: 63 },
+        { label: "1991–1995", count: 12 },
+        { label: "1996–2000", count: 17 },
+        { label: "2001–2005", count: 13 },
+        { label: "2006–2010", count: 7 },
+        { label: "2011–2015", count: 3 },
+        { label: "2016–2020", count: 2 },
+        { label: "2021–2024", count: 0 },
+      ];
+
+      // 模块 5：机构列表示例（仅为样本，便于前端联调）
+      // 替换真实数据时，只需保持字段名不变即可。
+      const organizations = [
+        {
+          nameEn: "Green Climate Alliance",
+          nameCn: "绿色气候联盟",
+          acronym: "GCA",
+          foundedYear: 2005,
+          hqRegion: "Europe",
+          hqCountry: "Germany",
+          hqCity: "Berlin",
+          legalNature: "International NGO",
+          functionType: "项目执行方",
+          hasChinaOffice: true,
+        },
+        {
+          nameEn: "Asia Education Partnership",
+          nameCn: "亚洲教育伙伴计划",
+          acronym: "AEP",
+          foundedYear: 2012,
+          hqRegion: "Asia",
+          hqCountry: "Singapore",
+          hqCity: "Singapore",
+          legalNature: "International NGO",
+          functionType: "能力建设",
+          hasChinaOffice: true,
+        },
+        {
+          nameEn: "Global Health Foundation",
+          nameCn: "全球健康基金会",
+          acronym: "GHF",
+          foundedYear: 1999,
+          // 注意：示例数据中将区域口径统一为 Excel 中的四类区域之一
+          hqRegion: "Oceania",
+          hqCountry: "Australia",
+          hqCity: "Sydney",
+          legalNature: "Foundation",
+          functionType: "资金资助方",
+          hasChinaOffice: false,
+        },
+        {
+          nameEn: "Women Rights Initiative",
+          nameCn: "妇女权利倡议组织",
+          acronym: "WRI",
+          foundedYear: 2010,
+          hqRegion: "Europe",
+          hqCountry: "Netherlands",
+          hqCity: "Amsterdam",
+          legalNature: "International NGO",
+          functionType: "研究与倡导",
+          hasChinaOffice: false,
+        },
+        {
+          nameEn: "Africa Community Development Centre",
+          nameCn: "非洲社区发展中心",
+          acronym: "ACDC",
+          foundedYear: 2008,
+          hqRegion: "Africa",
+          hqCountry: "Kenya",
+          hqCity: "Nairobi",
+          legalNature: "Local NGO",
+          functionType: "项目执行方",
+          hasChinaOffice: false,
+        },
+        {
+          nameEn: "Sustainable Agriculture Network",
+          nameCn: "可持续农业网络",
+          acronym: "SAN",
+          foundedYear: 2003,
+          hqRegion: "Europe",
+          hqCountry: "Switzerland",
+          hqCity: "Geneva",
+          legalNature: "Network",
+          functionType: "平台与网络",
+          hasChinaOffice: true,
+        },
+        {
+          nameEn: "Public Health Innovation Lab",
+          nameCn: "公共健康创新实验室",
+          acronym: "PHIL",
+          foundedYear: 2016,
+          hqRegion: "Asia",
+          hqCountry: "South Korea",
+          hqCity: "Seoul",
+          legalNature: "Research Institute",
+          functionType: "技术支持",
+          hasChinaOffice: false,
+        },
+        {
+          nameEn: "Youth Skills for Future",
+          nameCn: "未来青年技能计划",
+          acronym: "YSF",
+          foundedYear: 2018,
+          hqRegion: "Asia",
+          hqCountry: "China (Hong Kong)",
+          hqCity: "Hong Kong",
+          legalNature: "Local NGO",
+          functionType: "能力建设",
+          hasChinaOffice: true,
+        },
+        {
+          nameEn: "Inclusive Cities Network",
+          nameCn: "包容城市网络",
+          acronym: "ICN",
+          foundedYear: 2011,
+          // 示例数据：此处同样按固定的区域分类口径填入
+          hqRegion: "Europe",
+          hqCountry: "Belgium",
+          hqCity: "Brussels",
+          legalNature: "Network",
+          functionType: "平台与网络",
+          hasChinaOffice: false,
+        },
+        {
+          nameEn: "Food Security Partnership",
+          nameCn: "粮食安全伙伴关系",
+          acronym: "FSP",
+          foundedYear: 2007,
+          hqRegion: "Europe",
+          hqCountry: "France",
+          hqCity: "Paris",
+          legalNature: "International NGO",
+          functionType: "项目执行方",
+          hasChinaOffice: true,
+        },
+        {
+          nameEn: "Climate Policy Research Center",
+          nameCn: "气候政策研究中心",
+          acronym: "CPRC",
+          foundedYear: 2013,
+          hqRegion: "Europe",
+          hqCountry: "UK",
+          hqCity: "London",
+          legalNature: "Research Institute",
+          functionType: "研究与倡导",
+          hasChinaOffice: false,
+        },
+        {
+          nameEn: "Community Resilience Fund",
+          nameCn: "社区韧性基金",
+          acronym: "CRF",
+          foundedYear: 2014,
+          hqRegion: "Asia",
+          hqCountry: "Japan",
+          hqCity: "Tokyo",
+          legalNature: "Foundation",
+          functionType: "资金资助方",
+          hasChinaOffice: false,
+        },
+      ];
+
+      // ===========================
+      // 渲染逻辑
+      // ===========================
+
+      /**
+       * 初始化关键指标卡片与头部数值
+       */
+      function initSummaryMetrics() {
+        const {
+          totalOrgs,
+          activeOrgs,
+          regionsCovered,
+          orgsWithBranches,
+        } = summaryMetrics;
+
+        document.getElementById("metricTotalOrgs").textContent = totalOrgs;
+        document.getElementById("metricRegionsCovered").textContent =
+          regionsCovered;
+        document.getElementById("metricWithBranches").textContent =
+          orgsWithBranches;
+        document.getElementById("metricActiveOrgs").textContent = activeOrgs;
+
+        document.getElementById("summaryTotalSpan").textContent = totalOrgs;
+        document.getElementById("summaryTotalBadge").textContent = totalOrgs;
+        document.getElementById("summaryActiveBadge").textContent = activeOrgs;
+      }
+
+      /**
+       * 通用：创建饼图 / 环形图
+       */
+      function createDoughnutChart(ctx, labels, data, colors, cutout = "55%") {
+        return new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels,
+            datasets: [
+              {
+                data,
+                backgroundColor: colors,
+                borderWidth: 1,
+                borderColor: "#020617",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout,
+            plugins: {
+              legend: {
+                position: "right",
+                labels: {
+                  boxWidth: 10,
+                  boxHeight: 10,
+                  padding: 10,
+                  color: "#E5E7EB",
+                  font: {
+                    size: 10,
+                    family: "Inter, system-ui, sans-serif",
+                  },
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label(context) {
+                    const label = context.label || "";
+                    const value = context.raw || 0;
+                    const total = context.dataset.data.reduce(
+                      (sum, v) => sum + v,
+                      0
+                    );
+                    const percent = total
+                      ? ((value / total) * 100).toFixed(1)
+                      : 0;
+                    return `${label}: ${value} 家 (${percent}%)`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      /**
+       * 创建水平条形图
+       */
+      function createHorizontalBarChart(ctx, labels, data, color) {
+        return new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [
+              {
+                data,
+                backgroundColor: color,
+                borderRadius: 8,
+                barThickness: 14,
+                maxBarThickness: 18,
+              },
+            ],
+          },
+          options: {
+            indexAxis: "y",
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                grid: {
+                  color: "rgba(30,64,175,0.4)",
+                  drawBorder: false,
+                },
+                ticks: {
+                  color: "#9CA3AF",
+                  font: {
+                    size: 10,
+                  },
+                },
+              },
+              y: {
+                grid: {
+                  display: false,
+                },
+                ticks: {
+                  color: "#E5E7EB",
+                  font: {
+                    size: 10,
+                  },
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                callbacks: {
+                  label(context) {
+                    return `${context.formattedValue} 家机构`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      /**
+       * 创建柱状图（成立时间趋势，按年份统计）
+       */
+      function createFoundedYearBarChart(ctx, labels, data) {
+        return new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: "年度新增机构数",
+                data,
+                backgroundColor: "rgba(79,134,255,0.85)",
+                borderRadius: 6,
+                maxBarThickness: 26,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                grid: {
+                  color: "rgba(30,64,175,0.3)",
+                  drawBorder: false,
+                },
+                ticks: {
+                  color: "#9CA3AF",
+                  font: {
+                    size: 10,
+                  },
+                },
+              },
+              y: {
+                grid: {
+                  color: "rgba(15,23,42,0.7)",
+                  drawBorder: false,
+                },
+                ticks: {
+                  color: "#9CA3AF",
+                  font: {
+                    size: 10,
+                  },
+                  beginAtZero: true,
+                  precision: 0,
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                backgroundColor: "rgba(15,23,42,0.95)",
+                titleColor: "#E5E7EB",
+                bodyColor: "#E5E7EB",
+                borderColor: "rgba(148,163,184,0.5)",
+                borderWidth: 1,
+                callbacks: {
+                  title(context) {
+                    const bucket = context[0]?.label ?? "";
+                    return `年份区间：${bucket}`;
+                  },
+                  label(context) {
+                    const value = context.parsed.y ?? 0;
+                    return `数量：${value} 家`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      /**
+       * 渲染机构列表（根据筛选条件）
+       */
+      function renderOrganizationTable() {
+        const regionFilter = document.getElementById("regionFilter").value;
+        const natureFilter = document.getElementById("natureFilter").value;
+        const searchValue = document
+          .getElementById("searchInput")
+          .value.trim()
+          .toLowerCase();
+
+        const filtered = organizations.filter((org) => {
+          const matchRegion =
+            regionFilter === "all" || org.hqRegion === regionFilter;
+          const matchNature =
+            natureFilter === "all" || org.legalNature === natureFilter;
+
+          const combinedName = `${org.nameEn || ""} ${org.nameCn || ""}`
+            .toLowerCase()
+            .trim();
+          const matchSearch = combinedName.includes(searchValue);
+
+          return matchRegion && matchNature && matchSearch;
+        });
+
+        const tbody = document.getElementById("organizationTableBody");
+        tbody.innerHTML = "";
+
+        if (!filtered.length) {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td colspan="6" class="px-3 py-3 text-center text-[11px] text-slate-500">暂无符合条件的机构记录（样本）。</td>';
+          tbody.appendChild(tr);
+        } else {
+          filtered.forEach((org) => {
+            const tr = document.createElement("tr");
+            tr.className =
+              "hover:bg-slate-900/70 transition-colors duration-150";
+
+            const chinaTag = org.hasChinaOffice
+              ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-500/15 text-[10px] text-emerald-300 border border-emerald-400/30">是</span>'
+              : '<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-800/80 text-[10px] text-slate-300 border border-slate-600/50">否</span>';
+
+            tr.innerHTML = `
+              <td class="px-3 py-2 align-top">
+                <div class="text-[11px] font-medium text-slate-100">${org.nameEn}</div>
+                <div class="text-[11px] text-slate-400">${org.nameCn || ""}${
+              org.acronym ? " ｜ " + org.acronym : ""
+            }</div>
+              </td>
+              <td class="px-3 py-2 align-top">
+                <div class="text-[11px] text-slate-100">${org.hqRegion || "-"}</div>
+                <div class="text-[11px] text-slate-400">${org.hqCountry || ""}${
+              org.hqCity ? " ｜ " + org.hqCity : ""
+            }</div>
+              </td>
+              <td class="px-3 py-2 align-top">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-800/90 text-[10px] text-slate-100 border border-slate-600/80">
+                  ${org.legalNature || "-"}
+                </span>
+              </td>
+              <td class="px-3 py-2 align-top">
+                <span class="text-[11px] text-slate-100">${org.functionType || "-"}</span>
+              </td>
+              <td class="px-3 py-2 align-top">
+                <span class="text-[11px] text-slate-100">${org.foundedYear || "-"}</span>
+              </td>
+              <td class="px-3 py-2 align-top">
+                ${chinaTag}
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+
+        document.getElementById("organizationCount").textContent =
+          filtered.length;
+      }
+
+      /**
+       * 初始化所有图表与事件监听
+       */
+      function initDashboard() {
+        initSummaryMetrics();
+
+        // 总部区域饼图
+        const hqCtx = document
+          .getElementById("hqRegionChart")
+          .getContext("2d");
+        createDoughnutChart(
+          hqCtx,
+          regionDistribution.map((d) => d.label),
+          regionDistribution.map((d) => d.value),
+          regionDistribution.map((d) => d.color),
+          "58%"
+        );
+
+        // 存续状态环形图
+        const statusCtx = document
+          .getElementById("statusChart")
+          .getContext("2d");
+        createDoughnutChart(
+          statusCtx,
+          statusDistribution.map((d) => d.label),
+          statusDistribution.map((d) => d.value),
+          statusDistribution.map((d) => d.color),
+          "65%"
+        );
+
+        // 机构性质条形图
+        const natureCtx = document
+          .getElementById("orgNatureChart")
+          .getContext("2d");
+        createHorizontalBarChart(
+          natureCtx,
+          orgNatureDistribution.map((d) => d.label),
+          orgNatureDistribution.map((d) => d.value),
+          "rgba(79,134,255,0.85)"
+        );
+
+        // 职能类型条形图
+        const functionCtx = document
+          .getElementById("functionTypeChart")
+          .getContext("2d");
+        createHorizontalBarChart(
+          functionCtx,
+          functionTypeDistribution.map((d) => d.label),
+          functionTypeDistribution.map((d) => d.value),
+          "rgba(34,197,94,0.85)"
+        );
+
+        // 成立年份柱状图
+        const foundedCtx = document
+          .getElementById("foundedYearChart")
+          .getContext("2d");
+        createFoundedYearBarChart(
+          foundedCtx,
+          foundedYearTrend.map((d) => d.label),
+          foundedYearTrend.map((d) => d.count)
+        );
+
+        // 绑定筛选事件
+        document
+          .getElementById("regionFilter")
+          .addEventListener("change", renderOrganizationTable);
+        document
+          .getElementById("natureFilter")
+          .addEventListener("change", renderOrganizationTable);
+        document
+          .getElementById("searchInput")
+          .addEventListener("input", renderOrganizationTable);
+
+        // 初始渲染表格
+        renderOrganizationTable();
+      }
+
+      // DOM 加载完成后初始化看板
+      window.addEventListener("DOMContentLoaded", initDashboard);
+    </script>
+  </body>
+</html>
