@@ -100,21 +100,21 @@
               CANGO 海外资源库数据分析看板
             </h1>
             <!-- 保留一个仅供脚本更新的隐藏总数元素，避免空节点导致 JS 报错 -->
-            <span id="summaryTotalSpan" class="hidden">171</span>
+            <span id="summaryTotalSpan" class="hidden">204</span>
           </div>
           <div class="flex flex-col items-end gap-2">
             <div class="flex items-center gap-3">
               <div class="text-right text-xs text-slate-400">
                 <div>机构总数</div>
                 <div class="text-base font-semibold text-slate-100">
-                  <span id="summaryTotalBadge">171</span>
+                  <span id="summaryTotalBadge">204</span>
                 </div>
               </div>
               <div class="h-10 w-px bg-slate-800"></div>
               <div class="text-right text-xs text-slate-400">
                 <div>运行正常</div>
                 <div class="text-base font-semibold text-emerald-300">
-                  <span id="summaryActiveBadge">157</span>
+                  <span id="summaryActiveBadge">190</span>
                 </div>
               </div>
             </div>
@@ -154,6 +154,7 @@
                   <option value="North America">北美洲 (North America)</option>
                   <option value="South America">南美洲 (South America)</option>
                   <option value="Central Asia">中亚 (Central Asia)</option>
+                  <option value="Middle East">中东 (Middle East)</option>
                 </select>
               </label>
 
@@ -229,7 +230,7 @@
                   id="metricTotalOrgs"
                   class="mt-1 text-xl font-semibold text-slate-50"
                 >
-                  171
+                  204
                 </p>
                 <p class="mt-0.5 text-[11px] text-slate-500">
                   覆盖多个区域与主题领域
@@ -252,10 +253,10 @@
                   id="metricRegionsCovered"
                   class="mt-1 text-xl font-semibold text-slate-50"
                 >
-                  7
+                  8
                 </p>
                 <p class="mt-0.5 text-[11px] text-slate-500">
-                  亚洲 / 欧洲 / 非洲 / 大洋洲 / 北美洲 / 南美洲 / 中亚
+                  亚洲 / 欧洲 / 非洲 / 大洋洲 / 北美洲 / 南美洲 / 中亚 / 中东
                 </p>
               </div>
             </article>
@@ -277,7 +278,7 @@
                   id="metricWithBranches"
                   class="mt-1 text-xl font-semibold text-slate-50"
                 >
-                  146
+                  156
                 </p>
                 <p class="mt-0.5 text-[11px] text-slate-500">
                   含在华设点与第三国办公室
@@ -300,7 +301,7 @@
                   id="metricActiveOrgs"
                   class="mt-1 text-xl font-semibold text-emerald-300"
                 >
-                  157
+                  190
                 </p>
                 <p class="mt-0.5 text-[11px] text-slate-500">
                   剩余少量机构处于预警 / 待核查
@@ -322,7 +323,7 @@
                   <h2 class="text-sm font-semibold text-slate-100">
                     总部区域分布
                     <span class="text-[11px] font-normal text-slate-400">
-                      (Europe 85 / Asia 55 / Africa 2 / Oceania 2 / North America 24 / South America 1 / Central Asia 2)
+                      (Europe 95 / Asia 66 / North America 28 / Africa 4 / South America 4 / Oceania 3 / Central Asia 2 / Middle East 2)
                     </span>
                   </h2>
                   <p class="mt-0.5 text-[11px] text-slate-500">
@@ -534,7 +535,7 @@
                 </p>
               </div>
               <div class="text-[11px] text-emerald-300 font-medium">
-                数据核验状态：已对齐（171 家机构）
+                数据核验状态：已对齐（204 家机构）
               </div>
             </header>
             <div class="overflow-hidden rounded-xl border border-slate-800/80 bg-slate-950/40">
@@ -558,10 +559,10 @@
                       欧洲（Europe）
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      85
+                      95
                     </td>
                     <td class="px-3 py-2 text-[11px] text-emerald-300">
-                      85
+                      95
                     </td>
                   </tr>
                   <tr>
@@ -569,32 +570,10 @@
                       亚洲（Asia）
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      55
+                      66
                     </td>
                     <td class="px-3 py-2 text-[11px] text-emerald-300">
-                      55
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-3 py-2 text-[11px] text-slate-100">
-                      非洲（Africa）
-                    </td>
-                    <td class="px-3 py-2 text-[11px] text-slate-100">
-                      2
-                    </td>
-                    <td class="px-3 py-2 text-[11px] text-emerald-300">
-                      2
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-3 py-2 text-[11px] text-slate-100">
-                      大洋洲（Oceania）
-                    </td>
-                    <td class="px-3 py-2 text-[11px] text-slate-100">
-                      2
-                    </td>
-                    <td class="px-3 py-2 text-[11px] text-emerald-300">
-                      2
+                      66
                     </td>
                   </tr>
                   <tr>
@@ -602,10 +581,21 @@
                       北美洲（North America）
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      24
+                      28
                     </td>
                     <td class="px-3 py-2 text-[11px] text-emerald-300">
-                      24
+                      28
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      非洲（Africa）
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      4
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-emerald-300">
+                      4
                     </td>
                   </tr>
                   <tr>
@@ -613,10 +603,21 @@
                       南美洲（South America）
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      1
+                      4
                     </td>
                     <td class="px-3 py-2 text-[11px] text-emerald-300">
-                      1
+                      4
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      大洋洲（Oceania）
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      3
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-emerald-300">
+                      3
                     </td>
                   </tr>
                   <tr>
@@ -630,22 +631,33 @@
                       2
                     </td>
                   </tr>
+                  <tr>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      中东（Middle East）
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-slate-100">
+                      2
+                    </td>
+                    <td class="px-3 py-2 text-[11px] text-emerald-300">
+                      2
+                    </td>
+                  </tr>
                   <tr class="bg-slate-900/80">
                     <td class="px-3 py-2 text-[11px] text-slate-100 font-medium">
                       合计
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100 font-medium">
-                      171
+                      204
                     </td>
                     <td class="px-3 py-2 text-[11px] text-emerald-300 font-medium">
-                      171
+                      204
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p class="mt-2 text-[11px] text-slate-500">
-              注：如需二次核验，可逐条对照 Excel 中的机构记录，确认其「总部所在-区域」字段与上表七类区域分类一致。
+              注：如需二次核验，可逐条对照 Excel 中的机构记录，确认其「总部所在-区域」字段与上表八类区域分类一致。
             </p>
           </article>
         </section>
@@ -658,50 +670,51 @@
       // 静态样本数据区（可整体替换）
       // ===========================
 
-      // 关键指标卡片数据（2026.02 更新：共 171 家机构）
+      // 关键指标卡片数据（2026.02 更新：共 204 家机构）
       const summaryMetrics = {
-        totalOrgs: 171,
-        activeOrgs: 157,
-        regionsCovered: 7,
-        orgsWithBranches: 146,
+        totalOrgs: 204,
+        activeOrgs: 190,
+        regionsCovered: 8,
+        orgsWithBranches: 156,
       };
 
       // 模块 1：总部区域分布（严格按 Excel「总部所在-区域」字段统计，2026.02 更新）
       // 逐条核验说明：
-      // - 欧洲（Europe）：85 家机构
-      // - 亚洲（Asia）：55 家机构
-      // - 非洲（Africa）：2 家机构
-      // - 大洋洲（Oceania）：2 家机构
-      // - 北美洲（North America）：24 家机构
-      // - 南美洲（South America）：1 家机构
+      // - 欧洲（Europe）：95 家机构（含“欧洲注册”等归入欧洲）
+      // - 亚洲（Asia）：66 家机构
+      // - 北美洲（North America）：28 家机构
+      // - 非洲（Africa）：4 家机构
+      // - 南美洲（South America）：4 家机构
+      // - 大洋洲（Oceania）：3 家机构
       // - 中亚（Central Asia）：2 家机构
-      // 合计：85+55+2+2+24+1+2 = 171（与 summaryMetrics.totalOrgs 保持一致）
+      // - 中东（Middle East）：2 家机构
+      // 合计：95+66+28+4+4+3+2+2 = 204（与 summaryMetrics.totalOrgs 保持一致）
       const regionDistribution = [
-        { label: "欧洲 (Europe)", key: "Europe", value: 85, color: "#4F86FF" },
-        { label: "亚洲 (Asia)", key: "Asia", value: 55, color: "#22C55E" },
-        {
-          label: "非洲 (Africa)",
-          key: "Africa",
-          value: 2,
-          color: "#F97316",
-        },
-        {
-          label: "大洋洲 (Oceania)",
-          key: "Oceania",
-          value: 2,
-          color: "#A855F7",
-        },
+        { label: "欧洲 (Europe)", key: "Europe", value: 95, color: "#4F86FF" },
+        { label: "亚洲 (Asia)", key: "Asia", value: 66, color: "#22C55E" },
         {
           label: "北美洲 (North America)",
           key: "North America",
-          value: 24,
+          value: 28,
           color: "#EAB308",
+        },
+        {
+          label: "非洲 (Africa)",
+          key: "Africa",
+          value: 4,
+          color: "#F97316",
         },
         {
           label: "南美洲 (South America)",
           key: "South America",
-          value: 1,
+          value: 4,
           color: "#06B6D4",
+        },
+        {
+          label: "大洋洲 (Oceania)",
+          key: "Oceania",
+          value: 3,
+          color: "#A855F7",
         },
         {
           label: "中亚 (Central Asia)",
@@ -709,11 +722,17 @@
           value: 2,
           color: "#F43F5E",
         },
+        {
+          label: "中东 (Middle East)",
+          key: "Middle East",
+          value: 2,
+          color: "#8B5CF6",
+        },
       ];
 
-      // 存续状态分布（运行正常 vs 需预警，2026.02 更新）
+      // 存续状态分布（运行正常 vs 需预警，2026.02 更新；172–204 号机构存续状态已核对）
       const statusDistribution = [
-        { label: "正常运营", key: "Active", value: 157, color: "#22C55E" },
+        { label: "正常运营", key: "Active", value: 190, color: "#22C55E" },
         {
           label: "需预警 / 待核查",
           key: "Warning",
@@ -747,24 +766,24 @@
       ];
 
       // 模块 3：成立时间趋势（按 5 年区间汇总，基于 Excel「成立时间」字段，2026.02 更新）
-      // 逐条核验区间统计结果（171 家机构）：
-      // - 1990 及以前：86 家
-      // - 1991–1995：15 家
-      // - 1996–2000：19 家
-      // - 2001–2005：14 家
-      // - 2006–2010：7 家
-      // - 2011–2015：4 家
-      // - 2016–2020：2 家
-      // - 2021–2024：0 家
+      // 逐条核验区间统计结果（204 家机构）：
+      // - 1990 及以前：90 家
+      // - 1991–1995：20 家
+      // - 1996–2000：21 家
+      // - 2001–2005：17 家
+      // - 2006–2010：10 家
+      // - 2011–2015：6 家
+      // - 2016–2020：7 家
+      // - 2021–2024：2 家
       const foundedYearTrend = [
-        { label: "≤1990", count: 86 },
-        { label: "1991–1995", count: 15 },
-        { label: "1996–2000", count: 19 },
-        { label: "2001–2005", count: 14 },
-        { label: "2006–2010", count: 7 },
-        { label: "2011–2015", count: 4 },
-        { label: "2016–2020", count: 2 },
-        { label: "2021–2024", count: 0 },
+        { label: "≤1990", count: 90 },
+        { label: "1991–1995", count: 20 },
+        { label: "1996–2000", count: 21 },
+        { label: "2001–2005", count: 17 },
+        { label: "2006–2010", count: 10 },
+        { label: "2011–2015", count: 6 },
+        { label: "2016–2020", count: 7 },
+        { label: "2021–2024", count: 2 },
       ];
 
       // 模块 5：机构列表示例（仅为样本，便于前端联调）
