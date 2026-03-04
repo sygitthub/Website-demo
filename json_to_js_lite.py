@@ -63,15 +63,24 @@ def build_lite_payload() -> dict:
       # 未能识别区域的机构暂不纳入按大洲展示
       continue
 
-    founded = (
-      "" if row.get("成立时间") is None else str(row.get("成立时间")).strip()
-    )
+    raw_founded = row.get("成立时间")
+    founded_str = "" if raw_founded is None else str(raw_founded).strip()
+    try:
+      founded_year = int(float(founded_str)) if founded_str else None
+    except ValueError:
+      founded_year = None
 
-    nature = str(
+    nature_raw = str(
       row.get("机构性质\n（法律身份、本质属性）")
       or row.get("机构性质")
       or ""
     ).strip()
+    nature_std = nature_raw.split("\n", 1)[0].strip() if nature_raw else ""
+
+    function_raw = str(
+      row.get("机构类型\n（职能定位、合作方式）") or ""
+    ).strip()
+    function_std = function_raw.split("\n", 1)[0].strip() if function_raw else ""
 
     raw_intro = str(
       row.get("机构业务及开展区域") or row.get("备注") or ""
@@ -85,10 +94,29 @@ def build_lite_payload() -> dict:
     ).strip()
 
     subtitle_parts = []
-    if founded:
-      subtitle_parts.append(founded)
-    if nature:
-      subtitle_parts.append(nature)
+    if founded_str:
+      subtitle_parts.append(founded_str)
+    if nature_raw:
+      subtitle_parts.append(nature_raw)
+
+    # 是否有分支机构（含境外 / 在华）
+    has_branches = str(row.get("是否有分支机构") or "").strip() == "是"
+
+    # 存续状态：含「正常运营」或「存续」视为正常运营，其余非空为需预警/待核查
+    status_text = str(row.get("Unnamed: 29") or "").strip()
+    if "正常运营" in status_text or "存续" in status_text:
+      status_std = "Active"
+      warning_reason = ""
+    elif status_text:
+      status_std = "Warning"
+      # 精炼待核查原因：取首句或前 120 字，换行改为空格
+      refined = status_text.replace("\n", " ").strip()
+      if len(refined) > 120:
+        refined = refined[:120].rstrip() + "…"
+      warning_reason = refined
+    else:
+      status_std = ""
+      warning_reason = ""
 
     lite_orgs.append(
       {
@@ -97,6 +125,13 @@ def build_lite_payload() -> dict:
         "subtitle": " ｜ ".join(subtitle_parts),
         "body": intro,
         "tag": primary_region,
+        # 供统计使用的标准化字段
+        "foundedYear": founded_year,
+        "natureStd": nature_std,
+        "functionStd": function_std,
+        "hasBranches": has_branches,
+        "statusStd": status_std,
+        "warningReason": warning_reason,
       }
     )
 

@@ -1739,7 +1739,7 @@
       "机构名称": "Tanzania-China Friendship Promotion Association",
       "机构名称.1": "TCFPA",
       "Unnamed: 3": "坦中友好促进会",
-      "成立时间": "找不到相关信息",
+      "成立时间": 2003,
       "总部所在": "非洲 (Africa)",
       "Unnamed: 6": "坦桑尼亚（Tanzania）",
       "Unnamed: 7": "达累斯萨拉姆（Dar es Salaam）",
@@ -1757,7 +1757,7 @@
       "联系方式": NaN,
       "Unnamed: 20": NaN,
       "Unnamed: 21": NaN,
-      "Unnamed: 22": NaN,
+      "Unnamed: 22": "https://tcfpa.co.tz/",
       "Unnamed: 23": NaN,
       "备注": NaN,
       "Unnamed: 25": NaN,
@@ -2552,40 +2552,6 @@
     },
     {
       "Unnamed: 0": 76.0,
-      "机构名称": "Social Justice Vietnametnam",
-      "机构名称.1": "SJ Vietnam",
-      "Unnamed: 3": "越南社会正义组织",
-      "成立时间": "找不到相关信息",
-      "总部所在": "亚洲 (Asia)",
-      "Unnamed: 6": "越南 (Vietnam)",
-      "Unnamed: 7": "找不到相关信息",
-      "是否有分支机构": "否",
-      "Unnamed: 9": "否（未发现海外注册代表处公开信息）",
-      "机构业务及开展区域": "SJ Vietnam（Social Justice Vietnam）为越南本土社会组织，关注社会公平、社区发展与公民参与议题。公开信息较为有限，未检索到完整注册背景与组织架构说明。",
-      "Unnamed: 11": "东南亚 (Southeast Asia)",
-      "Unnamed: 12": "找不到相关信息",
-      "机构性质\n（法律身份、本质属性）": "非政府组织 / 社会组织 (Non-Governmental / Civil Society Organization)",
-      "机构类型\n（职能定位、合作方式）": "执行型机构 (Implementing Organization)",
-      "Unnamed: 15": "社区倡导组织 (Community Advocacy Organization)",
-      "主要关注哪类议题": "人权与社会正义 (Human Rights & Social Justice)",
-      "Unnamed: 17": "社区发展与减贫 (Community Development & Poverty Reduction)",
-      "Unnamed: 18": "教育与能力建设 (Education & Capacity Building)",
-      "联系方式": "找不到相关信息",
-      "Unnamed: 20": "找不到相关信息",
-      "Unnamed: 21": "找不到相关信息",
-      "Unnamed: 22": "找不到相关信息",
-      "Unnamed: 23": "找不到相关信息",
-      "备注": "公开资料较少，未检索到详细品牌项目或网络成员身份说明。",
-      "Unnamed: 25": "暂无在华注册代表处。未发现其在中国大陆注册代表处信息。",
-      "Unnamed: 26": "无合作 (No Cooperation)",
-      "Unnamed: 27": "暂无公开资料显示 CANGO 与该机构在公开渠道存在直接合作或共同出现在报道中。",
-      "Unnamed: 28": "如其为活跃机构，可在社区发展或社会治理议题方面探索交流。",
-      "Unnamed: 29": "正常运营：越南社会正义与包容性发展政策持续推进；2026年联合国人权理事会参与、就业法实施和社会发展报告中体现相关倡议。\n",
-      "机构名称_标准化": "Social Justice Vietnametnam",
-      "总部所在区域_标准化": "亚洲"
-    },
-    {
-      "Unnamed: 0": 77.0,
       "机构名称": "The Reality of Aid Network",
       "机构名称.1": "Reality of Aid (RoA)",
       "Unnamed: 3": "真实援助网络",
@@ -2619,17 +2585,17 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 78.0,
+      "Unnamed: 0": 77.0,
       "机构名称": "East Asia Climate Network",
       "机构名称.1": "EACN",
       "Unnamed: 3": "东亚气候网络",
-      "成立时间": "找不到相关信息",
+      "成立时间": 2010,
       "总部所在": "亚洲 (Asia)",
       "Unnamed: 6": "日本 (Japan)",
       "Unnamed: 7": "找不到相关信息",
       "是否有分支机构": "否",
       "Unnamed: 9": "否（未检索到海外注册代表处信息）",
-      "机构业务及开展区域": "公开资料极为有限，未检索到完整法人注册信息或官方网站，推测为区域性气候议题倡导网络或项目型合作机制。",
+      "机构业务及开展区域": "East Asia Climate Network（东亚气候网络，简称 EACN）是 2010 年成立的跨国非政府组织网络，由中国、日本、韩国民间气候行动组织组成，聚焦东亚气候变化应对、煤炭减排、可再生能源转型、《巴黎协定》落实及区域民间合作。该网络为松散区域性合作联盟，非独立注册法人，定期举办东亚气候论坛，联合发布煤炭发电相关报告，推动三国民间气候组织协调与政策倡导，支持成员参与联合国气候大会等国际进程，主要与中国国际民间组织合作促进会（CANGO）、中国民间气候变化行动网络（CCAN）、日本气候网络、韩国环境运动联合（KFEM）等机构合作开展活动，无独立官方网站，相关信息通过合作方渠道发布。",
       "Unnamed: 11": "东亚 (East Asia)",
       "Unnamed: 12": "找不到相关信息",
       "机构性质\n（法律身份、本质属性）": "非政府组织 / 社会组织 (Non-Governmental / Civil Society Organization)",
@@ -2653,7 +2619,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 79.0,
+      "Unnamed: 0": 78.0,
       "机构名称": "Foundation for Advanced Studies on International Development",
       "机构名称.1": "FASID",
       "Unnamed: 3": "国际开发高等研究基金会",
@@ -2687,7 +2653,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 80.0,
+      "Unnamed: 0": 79.0,
       "机构名称": "Food for the Hungry Japan",
       "机构名称.1": "FH Japan",
       "Unnamed: 3": "日本国际反饥饿组织",
@@ -2721,7 +2687,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 81.0,
+      "Unnamed: 0": 80.0,
       "机构名称": "Hiroshima University",
       "机构名称.1": "Hiroshima University",
       "Unnamed: 3": "广岛大学",
@@ -2755,7 +2721,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 82.0,
+      "Unnamed: 0": 81.0,
       "机构名称": "Institute for Sustainable Energy Policies",
       "机构名称.1": "ISEP",
       "Unnamed: 3": "可持续能源政策研究所",
@@ -2789,11 +2755,11 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 83.0,
+      "Unnamed: 0": 82.0,
       "机构名称": "Japan Alliance for Nuclear Weapons Abolition Studies",
       "机构名称.1": "JANUS",
       "Unnamed: 3": "日本废除核武研究联盟",
-      "成立时间": "找不到相关信息",
+      "成立时间": 2010,
       "总部所在": "亚洲 (Asia)",
       "Unnamed: 6": "日本 (Japan)",
       "Unnamed: 7": "找不到相关信息",
@@ -2823,17 +2789,17 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 84.0,
+      "Unnamed: 0": 83.0,
       "机构名称": "Japan Association of Charitable Organizations",
       "机构名称.1": "JACO",
-      "Unnamed: 3": "日本公益法人协会",
-      "成立时间": "找不到相关信息",
+      "Unnamed: 3": "日本慈善组织协会",
+      "成立时间": 1972,
       "总部所在": "亚洲 (Asia)",
       "Unnamed: 6": "日本 (Japan)",
       "Unnamed: 7": "东京（Tokyo）",
       "是否有分支机构": "否",
       "Unnamed: 9": "否（未发现海外注册代表处公开信息）",
-      "机构业务及开展区域": "JACO 是日本公益法人及非营利组织的行业支持与政策倡导平台，致力于推动公益法人制度完善、治理透明度提升与行业自律规范建设。通过政策建议、研究发布与行业交流促进日本公益领域发展。",
+      "机构业务及开展区域": "Japan Association of Charitable Organizations（日本慈善団体协会，简称 JACO / 日本公益法人协会）是一家总部位于日本的全国性公益法人伞状组织（umbrella body），是日本公益社团法人・公益财团法人（Public Interest Corporations）领域最大的支持性机构，目前拥有约1,550个主要会员组织。协会的核心使命是通过信息提供、政策倡导、部门强化活动（如出版物、月刊发行、网站运营等），促进公益法人领域的健全发展和市民社会的多样化活动，支持公共福祉的增进。\n",
       "Unnamed: 11": "亚洲 (Asia)",
       "Unnamed: 12": "找不到相关信息",
       "机构性质\n（法律身份、本质属性）": "非政府组织 / 社会组织 (Non-Governmental / Civil Society Organization)",
@@ -2845,7 +2811,7 @@
       "联系方式": "找不到相关信息",
       "Unnamed: 20": "找不到相关信息",
       "Unnamed: 21": "找不到相关信息",
-      "Unnamed: 22": "找不到相关信息",
+      "Unnamed: 22": "官方网站：http://www.kohokyo.or.jp/（日语版，英文版）\n",
       "Unnamed: 23": "找不到相关信息",
       "备注": "主要面向日本国内公益法人体系提供政策与制度层面支持。",
       "Unnamed: 25": "暂无在华注册代表处。未发现其在中国大陆注册代表处信息。",
@@ -2857,7 +2823,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 85.0,
+      "Unnamed: 0": 84.0,
       "机构名称": "Japan Bank for International Cooperation",
       "机构名称.1": "JBIC",
       "Unnamed: 3": "日本国际协力银行",
@@ -2891,7 +2857,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 86.0,
+      "Unnamed: 0": 85.0,
       "机构名称": "Japan Federation of Senior Citizens’ Clubs",
       "机构名称.1": "JFSC",
       "Unnamed: 3": "日本全国老年人俱乐部联合会",
@@ -2925,7 +2891,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 87.0,
+      "Unnamed: 0": 86.0,
       "机构名称": "Japan NGO Center for International Cooperation",
       "机构名称.1": " JANIC",
       "Unnamed: 3": "日本国际合作非政府组织中心",
@@ -2959,7 +2925,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 88.0,
+      "Unnamed: 0": 87.0,
       "机构名称": "Japan International Cooperation Agency",
       "机构名称.1": "JICA",
       "Unnamed: 3": "日本国际协力机构",
@@ -2993,17 +2959,17 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 89.0,
+      "Unnamed: 0": 88.0,
       "机构名称": "Japan International Institute for Volunteering Research",
       "机构名称.1": "JIVRI",
       "Unnamed: 3": "日本国际志愿服务研究所",
-      "成立时间": "找不到相关信息",
+      "成立时间": 2005,
       "总部所在": "亚洲 (Asia)",
       "Unnamed: 6": "日本 (Japan)",
       "Unnamed: 7": "找不到相关信息",
       "是否有分支机构": "否",
       "Unnamed: 9": "否（未发现海外注册代表处公开信息）",
-      "机构业务及开展区域": "JIVRI 为关注志愿服务与公民参与研究的日本民间机构或研究平台，公开信息较为有限，未检索到完整法人登记信息或稳定官方网站，推测为研究或倡导型组织。",
+      "机构业务及开展区域": "日本国际志愿服务研究所是一家总部位于日本的非营利研究机构，旨在文化背景下研究志愿服务及非营利组织（NPOs）的活动。其主要活动包括对东亚国家志愿服务的比较研究、举办民间社会论坛、出版《公民社会论坛》期刊，以及关于企业慈善和企业社会责任的国际比较研究。",
       "Unnamed: 11": "日本 (Japan)",
       "Unnamed: 12": "找不到相关信息",
       "机构性质\n（法律身份、本质属性）": "非政府组织 / 社会组织 (Non-Governmental / Civil Society Organization)",
@@ -3015,7 +2981,7 @@
       "联系方式": "找不到相关信息",
       "Unnamed: 20": "找不到相关信息",
       "Unnamed: 21": "找不到相关信息",
-      "Unnamed: 22": "找不到相关信息",
+      "Unnamed: 22": "官方网站（http://www.jivri.jp/ 或 http://www.jivri.org/）\n",
       "Unnamed: 23": "找不到相关信息",
       "备注": "公开资料有限，未检索到详细项目或成员网络说明。",
       "Unnamed: 25": "暂无在华注册代表处。未发现其在中国大陆注册代表处信息。",
@@ -3027,7 +2993,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 90.0,
+      "Unnamed: 0": 89.0,
       "机构名称": "Japan Kansai NPO Alliance",
       "机构名称.1": "Kansai NPO Alliance",
       "Unnamed: 3": "日本关西NPO联盟",
@@ -3061,7 +3027,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 91.0,
+      "Unnamed: 0": 90.0,
       "机构名称": "Japan Platform",
       "机构名称.1": "JPF",
       "Unnamed: 3": "日本平台",
@@ -3095,7 +3061,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 92.0,
+      "Unnamed: 0": 91.0,
       "机构名称": "Keidanren Committee on Nature Conservation",
       "机构名称.1": "Keidanren CNC",
       "Unnamed: 3": "日本经团联自然保护基金",
@@ -3129,7 +3095,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 93.0,
+      "Unnamed: 0": 92.0,
       "机构名称": "Korea International Cooperation Agency",
       "机构名称.1": "KOICA",
       "Unnamed: 3": "韩国国际协力机构",
@@ -3163,7 +3129,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 94.0,
+      "Unnamed: 0": 93.0,
       "机构名称": "Konkuk University",
       "机构名称.1": "Konkuk University",
       "Unnamed: 3": "建国大学",
@@ -3197,7 +3163,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 95.0,
+      "Unnamed: 0": 94.0,
       "机构名称": "Korea Forum of Volunteerism",
       "机构名称.1": "KVF",
       "Unnamed: 3": "韩国志愿服务论坛",
@@ -3231,7 +3197,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 96.0,
+      "Unnamed: 0": 95.0,
       "机构名称": "Korean Civil Society Forum on International Development Cooperation",
       "机构名称.1": "KoFID",
       "Unnamed: 3": "韩国国际发展合作公民社会论坛",
@@ -3265,7 +3231,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 97.0,
+      "Unnamed: 0": 96.0,
       "机构名称": "Korean NGO Council for Overseas Development Cooperation",
       "机构名称.1": "KCOC",
       "Unnamed: 3": "韩国民间组织海外发展合作委员会",
@@ -3299,7 +3265,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 98.0,
+      "Unnamed: 0": 97.0,
       "机构名称": "Korean Sharing Movement",
       "机构名称.1": "KSM",
       "Unnamed: 3": "韩国分享运动",
@@ -3333,7 +3299,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 99.0,
+      "Unnamed: 0": 98.0,
       "机构名称": "Kyoto Saga University of Arts",
       "机构名称.1": "京都嵯峨艺术大学",
       "Unnamed: 3": "京都嵯峨艺术大学",
@@ -3367,7 +3333,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 100.0,
+      "Unnamed: 0": 99.0,
       "机构名称": "Niwano Peace Foundation",
       "机构名称.1": "Niwano Peace Foundation",
       "Unnamed: 3": "庭野和平基金会",
@@ -3401,7 +3367,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 101.0,
+      "Unnamed: 0": 100.0,
       "机构名称": "Northeast Asia Regional Peacebuilding Institute",
       "机构名称.1": "NARPI",
       "Unnamed: 3": "东北亚区域和平建设学院",
@@ -3435,7 +3401,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 102.0,
+      "Unnamed: 0": 101.0,
       "机构名称": "Peace Boat",
       "机构名称.1": "Peace Boat",
       "Unnamed: 3": "和平船",
@@ -3469,7 +3435,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 103.0,
+      "Unnamed: 0": 102.0,
       "机构名称": "Sungkonghoe University",
       "机构名称.1": "Sungkonghoe University",
       "Unnamed: 3": "韩国圣公会大学",
@@ -3503,7 +3469,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 104.0,
+      "Unnamed: 0": 103.0,
       "机构名称": "The Buddhist NGO Network",
       "机构名称.1": "BNN",
       "Unnamed: 3": "日本佛教NGO网络",
@@ -3537,7 +3503,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 105.0,
+      "Unnamed: 0": 104.0,
       "机构名称": "The Japan Foundation",
       "机构名称.1": "JF",
       "Unnamed: 3": "日本国际交流基金会",
@@ -3571,7 +3537,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 106.0,
+      "Unnamed: 0": 105.0,
       "机构名称": "The SASAKAWA Japan-China Friendship Fund",
       "机构名称.1": "SJCFF",
       "Unnamed: 3": "笹川日中友好基金",
@@ -3605,7 +3571,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 107.0,
+      "Unnamed: 0": 106.0,
       "机构名称": "The Sasakawa Peace Foundation",
       "机构名称.1": "SPF",
       "Unnamed: 3": "日本笹川和平财团",
@@ -3639,17 +3605,17 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 108.0,
+      "Unnamed: 0": 107.0,
       "机构名称": "Angara Women’s Union of the Baikal Region",
       "机构名称.1": "Angara",
       "Unnamed: 3": "俄罗斯贝加尔地区妇女联盟",
-      "成立时间": "找不到相关信息",
+      "成立时间": 1992,
       "总部所在": "欧洲 (Europe)",
       "Unnamed: 6": "俄罗斯 (Russia)",
       "Unnamed: 7": "找不到相关信息",
       "是否有分支机构": "否",
       "Unnamed: 9": "找不到相关信息",
-      "机构业务及开展区域": "公开资料有限，疑似为区域性妇女组织，具体法律注册状态、成立时间及总部信息未查到明确来源。",
+      "机构业务及开展区域": "Angara Women’s Union of the Baikal Region（贝加尔地区安加拉妇女联盟，俄文：Байкальский Региональный Союз Женщин «Ангара」，简称 Angara Women's Union 或 Baikal Regional Women's Union \"Angara\"）是一家总部位于俄罗斯伊尔库茨克（Irkutsk）的非政府妇女组织，致力于妇女权利、性别平等、家庭暴力预防、反人口贩卖以及社区发展等领域。\n",
       "Unnamed: 11": "欧洲 (Europe)",
       "Unnamed: 12": "不明",
       "机构性质\n（法律身份、本质属性）": "非政府组织 / 社会组织 (Non-Governmental / Civil Society Organization)",
@@ -3673,7 +3639,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 109.0,
+      "Unnamed: 0": 108.0,
       "机构名称": "Areopagos Foundation",
       "机构名称.1": "Areopagos",
       "Unnamed: 3": "挪威阿瑞欧帕戈斯基金会",
@@ -3707,7 +3673,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 110.0,
+      "Unnamed: 0": 109.0,
       "机构名称": "ATD Fourth World",
       "机构名称.1": "ATD",
       "Unnamed: 3": "第四世界运动",
@@ -3741,7 +3707,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 111.0,
+      "Unnamed: 0": 110.0,
       "机构名称": "Australian Agency for International Development",
       "机构名称.1": "AusAID",
       "Unnamed: 3": "澳大利亚国际发展署",
@@ -3775,7 +3741,7 @@
       "总部所在区域_标准化": "大洋洲"
     },
     {
-      "Unnamed: 0": 112.0,
+      "Unnamed: 0": 111.0,
       "机构名称": "BalkanKids Foundation",
       "机构名称.1": "BKF",
       "Unnamed: 3": "-",
@@ -3809,7 +3775,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 113.0,
+      "Unnamed: 0": 112.0,
       "机构名称": "Bread for All",
       "机构名称.1": "Bread for All",
       "Unnamed: 3": NaN,
@@ -3843,7 +3809,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 114.0,
+      "Unnamed: 0": 113.0,
       "机构名称": "Climate Action Network Europe",
       "机构名称.1": "CAN Europe",
       "Unnamed: 3": "欧洲气候行动网络",
@@ -3877,7 +3843,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 115.0,
+      "Unnamed: 0": 114.0,
       "机构名称": "CARE International",
       "机构名称.1": "CARE",
       "Unnamed: 3": "国际关怀组织",
@@ -3911,7 +3877,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 116.0,
+      "Unnamed: 0": 115.0,
       "机构名称": "Caritas Australia",
       "机构名称.1": "Caritas Australia",
       "Unnamed: 3": "澳大利亚明爱组织",
@@ -3945,7 +3911,7 @@
       "总部所在区域_标准化": "大洋洲"
     },
     {
-      "Unnamed: 0": 117.0,
+      "Unnamed: 0": 116.0,
       "机构名称": "Caritas Denmark",
       "机构名称.1": "Caritas Denmark",
       "Unnamed: 3": "丹麦明爱组织",
@@ -3979,7 +3945,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 118.0,
+      "Unnamed: 0": 117.0,
       "机构名称": "Center for Environment",
       "机构名称.1": "CZZS",
       "Unnamed: 3": "波黑环境中心",
@@ -4013,7 +3979,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 119.0,
+      "Unnamed: 0": 118.0,
       "机构名称": "CESIE",
       "机构名称.1": "CESIE",
       "Unnamed: 3": "意大利欧洲政策与倡议中心",
@@ -4047,7 +4013,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 120.0,
+      "Unnamed: 0": 119.0,
       "机构名称": "Fundación CODESPA",
       "机构名称.1": "CODESPA",
       "Unnamed: 3": "西班牙CODESPA基金会",
@@ -4081,7 +4047,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 121.0,
+      "Unnamed: 0": 120.0,
       "机构名称": "CONCORD Europe",
       "机构名称.1": "CONCORD",
       "Unnamed: 3": "欧洲发展NGO联合会",
@@ -4115,7 +4081,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 122.0,
+      "Unnamed: 0": 121.0,
       "机构名称": "Danish Institute for Human Rights",
       "机构名称.1": "DIHR",
       "Unnamed: 3": "丹麦人权研究所",
@@ -4149,7 +4115,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 123.0,
+      "Unnamed: 0": 122.0,
       "机构名称": "European Commission",
       "机构名称.1": "European Commission",
       "Unnamed: 3": "欧洲委员会",
@@ -4183,7 +4149,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 124.0,
+      "Unnamed: 0": 123.0,
       "机构名称": "Fern",
       "机构名称.1": "Fern",
       "Unnamed: 3": "费恩森林政策倡导组织",
@@ -4217,7 +4183,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 125.0,
+      "Unnamed: 0": 124.0,
       "机构名称": "Formaper – Agency of Milan Chamber of Commerce, Industry, Handcraft and Agriculture",
       "机构名称.1": "Formaper",
       "Unnamed: 3": "意大利米兰商会培训机构",
@@ -4251,7 +4217,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 126.0,
+      "Unnamed: 0": 125.0,
       "机构名称": "ING Insurance–CPAFFC Fund",
       "机构名称.1": NaN,
       "Unnamed: 3": "荷兰保险–中国人民对外友好协会基金",
@@ -4285,7 +4251,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 127.0,
+      "Unnamed: 0": 126.0,
       "机构名称": "International Committee on Fundraising Organizations",
       "机构名称.1": "ICFO",
       "Unnamed: 3": "国际筹款组织委员会",
@@ -4319,7 +4285,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 128.0,
+      "Unnamed: 0": 127.0,
       "机构名称": "International Union for Conservation of Nature",
       "机构名称.1": "IUCN",
       "Unnamed: 3": "国际自然保护联盟",
@@ -4353,7 +4319,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 129.0,
+      "Unnamed: 0": 128.0,
       "机构名称": "LEF-Italia",
       "机构名称.1": "LEF-Italia",
       "Unnamed: 3": "意大利欧洲妇女游说协调组织",
@@ -4387,7 +4353,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 130.0,
+      "Unnamed: 0": 129.0,
       "机构名称": "Mama Cash",
       "机构名称.1": "Mama Cash",
       "Unnamed: 3": "荷兰马马现金基金会",
@@ -4421,7 +4387,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 131.0,
+      "Unnamed: 0": 130.0,
       "机构名称": "Norwegian Lutheran Mission",
       "机构名称.1": "NLM",
       "Unnamed: 3": "挪威路德会宣教会",
@@ -4455,7 +4421,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 132.0,
+      "Unnamed: 0": 131.0,
       "机构名称": "Oxfam Novib",
       "机构名称.1": "Oxfam Novib",
       "Unnamed: 3": "荷兰乐施会",
@@ -4489,7 +4455,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 133.0,
+      "Unnamed: 0": 132.0,
       "机构名称": "Romanian Association Against AIDS",
       "机构名称.1": "ARAS",
       "Unnamed: 3": "罗马尼亚抗艾滋病协会",
@@ -4523,7 +4489,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 134.0,
+      "Unnamed: 0": 133.0,
       "机构名称": "Südwind",
       "机构名称.1": "Südwind",
       "Unnamed: 3": "奥地利南风发展政策协会",
@@ -4557,7 +4523,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 135.0,
+      "Unnamed: 0": 134.0,
       "机构名称": "Charles Léopold Mayer Foundation for the Progress of Humankind",
       "机构名称.1": "FPH",
       "Unnamed: 3": "查尔斯·莱奥波德·梅耶促进人类进步基金会",
@@ -4591,7 +4557,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 136.0,
+      "Unnamed: 0": 135.0,
       "机构名称": "The Danish Centre for Human Rights",
       "机构名称.1": "DCHR",
       "Unnamed: 3": "丹麦人权中心",
@@ -4625,7 +4591,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 137.0,
+      "Unnamed: 0": 136.0,
       "机构名称": "Wild Geese Foundation",
       "机构名称.1": "Wild Geese Foundation",
       "Unnamed: 3": "荷兰野雁基金会",
@@ -4659,7 +4625,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 138.0,
+      "Unnamed: 0": 137.0,
       "机构名称": "World Council of Churches",
       "机构名称.1": "WCC",
       "Unnamed: 3": "世界基督教会联合会",
@@ -4693,7 +4659,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 139.0,
+      "Unnamed: 0": 138.0,
       "机构名称": "World Rural Forum",
       "机构名称.1": "WRF",
       "Unnamed: 3": "世界乡村论坛",
@@ -4727,7 +4693,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 140.0,
+      "Unnamed: 0": 139.0,
       "机构名称": "World Wide Fund for Nature in China",
       "机构名称.1": "WWF China",
       "Unnamed: 3": "世界自然基金会（中国）",
@@ -4761,7 +4727,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 141.0,
+      "Unnamed: 0": 140.0,
       "机构名称": "YouNet",
       "机构名称.1": "YouNet",
       "Unnamed: 3": "意大利青年人网络",
@@ -4795,7 +4761,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 142.0,
+      "Unnamed: 0": 141.0,
       "机构名称": "ADRA Canada",
       "机构名称.1": "ADRA",
       "Unnamed: 3": "基督复临安息日会发展与救济署（加拿大）",
@@ -4829,7 +4795,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 143.0,
+      "Unnamed: 0": 142.0,
       "机构名称": "American Bar Association",
       "机构名称.1": "ABA",
       "Unnamed: 3": "美国律师协会",
@@ -4863,7 +4829,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 144.0,
+      "Unnamed: 0": 143.0,
       "机构名称": "The Asia Foundation",
       "机构名称.1": "TAF",
       "Unnamed: 3": "亚洲基金会",
@@ -4897,7 +4863,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 145.0,
+      "Unnamed: 0": 144.0,
       "机构名称": "Bill & Melinda Gates Foundation",
       "机构名称.1": "Gates Foundation",
       "Unnamed: 3": "比尔和梅琳达·盖茨基金会",
@@ -4931,7 +4897,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 146.0,
+      "Unnamed: 0": 145.0,
       "机构名称": "Business for Social Responsibility",
       "机构名称.1": "BSR",
       "Unnamed: 3": "企业社会责任组织（BSR）",
@@ -4965,7 +4931,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 147.0,
+      "Unnamed: 0": 146.0,
       "机构名称": "Canadian International Development Agency",
       "机构名称.1": "CIDA",
       "Unnamed: 3": "加拿大国际开发署",
@@ -4999,7 +4965,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 148.0,
+      "Unnamed: 0": 147.0,
       "机构名称": "Carnegie Mellon University",
       "机构名称.1": "CMU",
       "Unnamed: 3": "卡内基梅隆大学",
@@ -5033,7 +4999,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 149.0,
+      "Unnamed: 0": 148.0,
       "机构名称": "Environmental Defense Fund",
       "机构名称.1": "EDF",
       "Unnamed: 3": "环境保护基金会（美国环保协会）",
@@ -5067,7 +5033,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 150.0,
+      "Unnamed: 0": 149.0,
       "机构名称": "FHI 360",
       "机构名称.1": "FHI 360",
       "Unnamed: 3": "家庭健康国际（现FHI 360）",
@@ -5101,7 +5067,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 151.0,
+      "Unnamed: 0": 150.0,
       "机构名称": "Ford Foundation",
       "机构名称.1": NaN,
       "Unnamed: 3": "福特基金会",
@@ -5135,7 +5101,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 152.0,
+      "Unnamed: 0": 151.0,
       "机构名称": "Give2Asia",
       "机构名称.1": "Give2Asia",
       "Unnamed: 3": "赠与亚洲",
@@ -5169,7 +5135,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 153.0,
+      "Unnamed: 0": 152.0,
       "机构名称": "Greenpeace International",
       "机构名称.1": "Greenpeace",
       "Unnamed: 3": "绿色和平",
@@ -5203,7 +5169,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 154.0,
+      "Unnamed: 0": 153.0,
       "机构名称": "Instituto Brasileiro de Análises Sociais e Econômicas",
       "机构名称.1": "IBASE",
       "Unnamed: 3": "巴西社会与经济分析研究所",
@@ -5237,7 +5203,7 @@
       "总部所在区域_标准化": "南美/拉美"
     },
     {
-      "Unnamed: 0": 155.0,
+      "Unnamed: 0": 154.0,
       "机构名称": "Independent Sector",
       "机构名称.1": "IS",
       "Unnamed: 3": "独立部门组织（美国）",
@@ -5271,7 +5237,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 156.0,
+      "Unnamed: 0": 155.0,
       "机构名称": "InterAction",
       "机构名称.1": "InterAction",
       "Unnamed: 3": "美国国际援助组织联盟",
@@ -5305,7 +5271,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 157.0,
+      "Unnamed: 0": 156.0,
       "机构名称": "International Rivers",
       "机构名称.1": "IR",
       "Unnamed: 3": "国际河流组织",
@@ -5339,7 +5305,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 158.0,
+      "Unnamed: 0": 157.0,
       "机构名称": "Nasdaq Foundation",
       "机构名称.1": NaN,
       "Unnamed: 3": "纳斯达克基金会",
@@ -5373,7 +5339,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 159.0,
+      "Unnamed: 0": 158.0,
       "机构名称": "National Democratic Institute",
       "机构名称.1": "NDI",
       "Unnamed: 3": "美国国家民主研究所",
@@ -5407,7 +5373,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 160.0,
+      "Unnamed: 0": 159.0,
       "机构名称": "Oak Foundation",
       "机构名称.1": "OAK",
       "Unnamed: 3": "橡树基金会",
@@ -5441,7 +5407,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 161.0,
+      "Unnamed: 0": 160.0,
       "机构名称": "Pepperdine University",
       "机构名称.1": NaN,
       "Unnamed: 3": "培普丹大学",
@@ -5475,7 +5441,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 162.0,
+      "Unnamed: 0": 161.0,
       "机构名称": "Plan International",
       "机构名称.1": "Plan",
       "Unnamed: 3": "国际计划",
@@ -5509,7 +5475,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 163.0,
+      "Unnamed: 0": 162.0,
       "机构名称": "The Conference Board",
       "机构名称.1": "TCB",
       "Unnamed: 3": "会议委员会",
@@ -5543,7 +5509,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 164.0,
+      "Unnamed: 0": 163.0,
       "机构名称": "The Energy Foundation",
       "机构名称.1": "EF",
       "Unnamed: 3": "能源基金会（美国）",
@@ -5577,7 +5543,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 165.0,
+      "Unnamed: 0": 164.0,
       "机构名称": "The Rockefeller Brothers Fund",
       "机构名称.1": "RBF",
       "Unnamed: 3": "洛克菲勒兄弟基金会",
@@ -5611,7 +5577,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 166.0,
+      "Unnamed: 0": 165.0,
       "机构名称": "The UPS Foundation",
       "机构名称.1": "UPS Foundation",
       "Unnamed: 3": "UPS基金会",
@@ -5645,7 +5611,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 167.0,
+      "Unnamed: 0": 166.0,
       "机构名称": "The US-China Business Council",
       "机构名称.1": "USCBC",
       "Unnamed: 3": "美中贸易全国委员会",
@@ -5679,7 +5645,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 168.0,
+      "Unnamed: 0": 167.0,
       "机构名称": "United Way Worldwide",
       "机构名称.1": "United Way / UWI",
       "Unnamed: 3": "联合劝募（全球体系）",
@@ -5713,7 +5679,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 169.0,
+      "Unnamed: 0": 168.0,
       "机构名称": "WildAid",
       "机构名称.1": "WildAid",
       "Unnamed: 3": "野生救援",
@@ -5747,7 +5713,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 170.0,
+      "Unnamed: 0": 169.0,
       "机构名称": "Feminist League",
       "机构名称.1": "Feminist League of Kazakhstan",
       "Unnamed: 3": "哈萨克斯坦女性联盟",
@@ -5781,17 +5747,17 @@
       "总部所在区域_标准化": "中亚"
     },
     {
-      "Unnamed: 0": 171.0,
+      "Unnamed: 0": 170.0,
       "机构名称": "Civic Initiatives Support Center",
       "机构名称.1": "CISC",
       "Unnamed: 3": "乌兹别克公民意愿支持中心",
-      "成立时间": "未检索到可确认成立时间",
+      "成立时间": 2004,
       "总部所在": "中亚 (Central Asia)",
       "Unnamed: 6": "乌兹别克斯坦",
       "Unnamed: 7": "塔什干（Tashkent）",
       "是否有分支机构": "否",
       "Unnamed: 9": "否",
-      "机构业务及开展区域": "Civic Initiatives Support Center 是一家总部位于乌兹别克斯坦塔什干的民间组织支持机构，致力于加强本国公民社会能力建设。其工作包括为本地非政府组织提供法律咨询、项目管理培训、社区发展支持与政策倡导能力建设。机构主要服务于乌兹别克斯坦境内的社会组织与社区团体，推动参与式治理与社会服务创新。",
+      "机构业务及开展区域": "Civic Initiatives Support Center（公民倡议支援中心，简称 CISC/ЦПГИ）是总部位于乌兹别克斯坦塔什干的非政府非营利组织，于 2004 年 8 月 25 日经乌兹别克斯坦司法部以公共协会形式正式注册成立，自同年 8 月起在全国范围内开展工作，并于 2016 年 4 月获得联合国经社理事会（ECOSOC）特别咨商地位；该机构以推动乌兹别克斯坦公民社会发展为核心使命，主要通过法律援助、能力建设培训、性别平等倡导、预防性别暴力、NGO 协调及与政府对话等方式，重点维护妇女权利、促进社区参与和透明治理，同时为本地非政府组织及社区团体提供法律咨询、项目管理培训、社区发展支持与政策倡导能力建设，助力参与式治理与社会服务创新。",
       "Unnamed: 11": "乌兹别克斯坦",
       "Unnamed: 12": "找不到相关信息",
       "机构性质\n（法律身份、本质属性）": "非政府组织 (NGO)",
@@ -5803,7 +5769,7 @@
       "联系方式": "找不到相关信息",
       "Unnamed: 20": "找不到相关信息",
       "Unnamed: 21": "未检索到公开邮箱",
-      "Unnamed: 22": "未检索到可确认官网",
+      "Unnamed: 22": "www.cisc.uz（俄语/乌兹别克语为主，部分英文内容）",
       "Unnamed: 23": "未检索到公开电话",
       "备注": "未检索到其作为成员加入其他国际网络的公开信息",
       "Unnamed: 25": "区域性NGO支持平台机构",
@@ -5815,7 +5781,7 @@
       "总部所在区域_标准化": "中亚"
     },
     {
-      "Unnamed: 0": 172.0,
+      "Unnamed: 0": 171.0,
       "机构名称": "TT Foundation Advisors",
       "机构名称.1": "TTFA",
       "Unnamed: 3": "TT基金会咨询",
@@ -5849,7 +5815,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 173.0,
+      "Unnamed: 0": 172.0,
       "机构名称": "HSBC Global Private Banking",
       "机构名称.1": "HSBC",
       "Unnamed: 3": "滙豐環球私人銀行有限公司",
@@ -5883,7 +5849,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 174.0,
+      "Unnamed: 0": 173.0,
       "机构名称": "Accountability Counsel",
       "机构名称.1": "Accountability Counsel",
       "Unnamed: 3": NaN,
@@ -5917,7 +5883,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 175.0,
+      "Unnamed: 0": 174.0,
       "机构名称": "Myriad Australia",
       "机构名称.1": "myriad Australia Ltd",
       "Unnamed: 3": NaN,
@@ -5951,7 +5917,7 @@
       "总部所在区域_标准化": "大洋洲"
     },
     {
-      "Unnamed: 0": 176.0,
+      "Unnamed: 0": 175.0,
       "机构名称": "Re-Course",
       "机构名称.1": "Re-Course",
       "Unnamed: 3": NaN,
@@ -5985,7 +5951,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 177.0,
+      "Unnamed: 0": 176.0,
       "机构名称": "Groupe CIDE",
       "机构名称.1": "Groupe CIDE",
       "Unnamed: 3": NaN,
@@ -6019,7 +5985,7 @@
       "总部所在区域_标准化": "非洲"
     },
     {
-      "Unnamed: 0": 178.0,
+      "Unnamed: 0": 177.0,
       "机构名称": "Fundación Protestante Hora de Obrar",
       "机构名称.1": "Hora de Obrar",
       "Unnamed: 3": NaN,
@@ -6053,7 +6019,7 @@
       "总部所在区域_标准化": "南美/拉美"
     },
     {
-      "Unnamed: 0": 179.0,
+      "Unnamed: 0": 178.0,
       "机构名称": "Worldwide Initiatives for Grantmaker Support",
       "机构名称.1": "WINGS",
       "Unnamed: 3": NaN,
@@ -6087,7 +6053,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 180.0,
+      "Unnamed: 0": 179.0,
       "机构名称": "RMI",
       "机构名称.1": "RMI（原 Rocky Mountain Institute）",
       "Unnamed: 3": "落基山研究所",
@@ -6121,7 +6087,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 181.0,
+      "Unnamed: 0": 180.0,
       "机构名称": "Viswa Yuva Kendra",
       "机构名称.1": "VYK",
       "Unnamed: 3": NaN,
@@ -6155,7 +6121,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 182.0,
+      "Unnamed: 0": 181.0,
       "机构名称": "WINGS for Asia",
       "机构名称.1": "WINGS Asia",
       "Unnamed: 3": NaN,
@@ -6189,7 +6155,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 183.0,
+      "Unnamed: 0": 182.0,
       "机构名称": "Organization of Islamic Cooperation",
       "机构名称.1": "OIC",
       "Unnamed: 3": "伊斯兰合作组织",
@@ -6223,7 +6189,7 @@
       "总部所在区域_标准化": "中东"
     },
     {
-      "Unnamed: 0": 184.0,
+      "Unnamed: 0": 183.0,
       "机构名称": "Poverty Alleviation and Inclusive Development Across Rural Sindh",
       "机构名称.1": "PAIDAR",
       "Unnamed: 3": NaN,
@@ -6257,7 +6223,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 185.0,
+      "Unnamed: 0": 184.0,
       "机构名称": "New Energy Nexus",
       "机构名称.1": "New Energy Nexus",
       "Unnamed: 3": NaN,
@@ -6291,7 +6257,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 186.0,
+      "Unnamed: 0": 185.0,
       "机构名称": "Centre for Community Development",
       "机构名称.1": "CCD",
       "Unnamed: 3": NaN,
@@ -6325,7 +6291,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 187.0,
+      "Unnamed: 0": 186.0,
       "机构名称": "LUMIQUE Gesellschaft für strategische Managementservices mbH",
       "机构名称.1": "LUMIQUE GmbH\n",
       "Unnamed: 3": NaN,
@@ -6359,7 +6325,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 188.0,
+      "Unnamed: 0": 187.0,
       "机构名称": "Grow Climate Fund",
       "机构名称.1": "GROW CLIMATE FUND",
       "Unnamed: 3": NaN,
@@ -6393,7 +6359,7 @@
       "总部所在区域_标准化": "北美"
     },
     {
-      "Unnamed: 0": 189.0,
+      "Unnamed: 0": 188.0,
       "机构名称": "The Resource Alliance",
       "机构名称.1": "The Resource Alliance",
       "Unnamed: 3": NaN,
@@ -6427,7 +6393,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 190.0,
+      "Unnamed: 0": 189.0,
       "机构名称": "Micron Memory Taiwan Co., Ltd.",
       "机构名称.1": "Micron Taiwan",
       "Unnamed: 3": "美光记忆体台湾股份有限公司",
@@ -6461,7 +6427,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 191.0,
+      "Unnamed: 0": 190.0,
       "机构名称": "South African BRICS Think Tank",
       "机构名称.1": "SABTT",
       "Unnamed: 3": "南非金砖国家智库",
@@ -6495,7 +6461,7 @@
       "总部所在区域_标准化": "非洲"
     },
     {
-      "Unnamed: 0": 192.0,
+      "Unnamed: 0": 191.0,
       "机构名称": "China Council for the Promotion of International Trade Representative Office in Thailand",
       "机构名称.1": "CCPIT Thailand Office",
       "Unnamed: 3": "中国国际贸易促进委员会驻泰国代表处",
@@ -6529,7 +6495,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 193.0,
+      "Unnamed: 0": 192.0,
       "机构名称": "Association des Entreprises Chinoises en France",
       "机构名称.1": NaN,
       "Unnamed: 3": "法国中国工商会",
@@ -6563,7 +6529,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 194.0,
+      "Unnamed: 0": 193.0,
       "机构名称": "Urgewald e.V.",
       "机构名称.1": "Urgewald",
       "Unnamed: 3": NaN,
@@ -6597,7 +6563,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 195.0,
+      "Unnamed: 0": 194.0,
       "机构名称": "Empact Pte. Ltd.",
       "机构名称.1": "empact.sg",
       "Unnamed: 3": NaN,
@@ -6631,7 +6597,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 196.0,
+      "Unnamed: 0": 195.0,
       "机构名称": "Asia House Denmark",
       "机构名称.1": "Asia House",
       "Unnamed: 3": NaN,
@@ -6665,7 +6631,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 197.0,
+      "Unnamed: 0": 196.0,
       "机构名称": "Spaces Impact",
       "机构名称.1": "Spaces Impact",
       "Unnamed: 3": NaN,
@@ -6699,7 +6665,7 @@
       "总部所在区域_标准化": "欧洲"
     },
     {
-      "Unnamed: 0": 198.0,
+      "Unnamed: 0": 197.0,
       "机构名称": "Sovereign Forest",
       "机构名称.1": "Sovereign Forest",
       "Unnamed: 3": NaN,
@@ -6733,7 +6699,7 @@
       "总部所在区域_标准化": "南美/拉美"
     },
     {
-      "Unnamed: 0": 199.0,
+      "Unnamed: 0": 198.0,
       "机构名称": "Instituto de Desenvolvimento Sustentável",
       "机构名称.1": "IDS Brasil",
       "Unnamed: 3": "巴西可持续发展研究所",
@@ -6767,7 +6733,7 @@
       "总部所在区域_标准化": "南美/拉美"
     },
     {
-      "Unnamed: 0": 200.0,
+      "Unnamed: 0": 199.0,
       "机构名称": "Al-Mujadilah Center & Mosque for Women",
       "机构名称.1": "Al-Mujadilah",
       "Unnamed: 3": NaN,
@@ -6801,7 +6767,7 @@
       "总部所在区域_标准化": "中东"
     },
     {
-      "Unnamed: 0": 201.0,
+      "Unnamed: 0": 200.0,
       "机构名称": "Thailand Environment Institute Foundation",
       "机构名称.1": "TEI",
       "Unnamed: 3": "泰国环境研究院",
@@ -6835,7 +6801,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 202.0,
+      "Unnamed: 0": 201.0,
       "机构名称": "Local Development Foundation",
       "机构名称.1": "Local Development Foundation",
       "Unnamed: 3": NaN,
@@ -6869,7 +6835,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 203.0,
+      "Unnamed: 0": 202.0,
       "机构名称": "Population and Community Development Association",
       "机构名称.1": "PDA",
       "Unnamed: 3": "泰国人口与社区发展协会",
@@ -6903,7 +6869,7 @@
       "总部所在区域_标准化": "亚洲"
     },
     {
-      "Unnamed: 0": 204.0,
+      "Unnamed: 0": 203.0,
       "机构名称": "Mae Fah Luang Foundation under Royal Patronage",
       "机构名称.1": "Mae Fah Luang Foundation",
       "Unnamed: 3": "美法銮基金会",

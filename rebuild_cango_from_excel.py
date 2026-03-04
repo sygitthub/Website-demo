@@ -69,7 +69,7 @@ def normalize_region_std(row: pd.Series) -> str:
 
 
 def main() -> None:
-    excel_path = Path("【汇总表】CANGO海外资源库-数据清洗 2026.02 更新.xlsx")
+    excel_path = Path("【汇总表】CANGO海外资源库-数据清洗 2026.03 更新.xlsx")
     if not excel_path.exists():
         raise FileNotFoundError(f"未找到 Excel 文件: {excel_path}")
 

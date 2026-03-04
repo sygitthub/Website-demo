@@ -84,6 +84,8 @@
 
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- TagCanvas 3D 词云（standalone，无 jQuery） -->
+    <script src="https://www.goat1000.com/tagcanvas.min.js"></script>
     <!-- 预嵌入的 CANGO 机构数据（由脚本从 JSON 转换而来） -->
     <script src="cango-data-lite.js"></script>
 
@@ -125,21 +127,21 @@
               CANGO 海外资源库看板
             </h1>
             <!-- 保留一个仅供脚本更新的隐藏总数元素，避免空节点导致 JS 报错 -->
-            <span id="summaryTotalSpan" class="hidden">204</span>
+            <span id="summaryTotalSpan" class="hidden">203</span>
           </div>
           <div class="flex flex-col items-end gap-2">
             <div class="flex items-center gap-3">
               <div class="text-right text-xs text-slate-400">
                 <div>机构总数</div>
                 <div class="text-base font-semibold text-slate-100">
-                  <span id="summaryTotalBadge">204</span>
+                  <span id="summaryTotalBadge">203</span>
                 </div>
               </div>
               <div class="h-10 w-px bg-slate-800"></div>
               <div class="text-right text-xs text-slate-400">
-                <div>运行正常</div>
-                <div class="text-base font-semibold text-emerald-300">
-                  <span id="summaryActiveBadge">190</span>
+                <div>数据更新日期</div>
+                <div class="text-base font-medium text-slate-400">
+                  <span id="headerUpdateDate">—</span>
                 </div>
               </div>
             </div>
@@ -174,10 +176,10 @@
                   <option value="all">全部区域</option>
                   <option value="Europe">欧洲 (Europe)</option>
                   <option value="Asia">亚洲 (Asia)</option>
+                  <option value="South America">南美洲 (South America)</option>
                   <option value="Africa">非洲 (Africa)</option>
                   <option value="Oceania">大洋洲 (Oceania)</option>
                   <option value="North America">北美洲 (North America)</option>
-                  <option value="South America">南美洲 (South America)</option>
                   <option value="Central Asia">中亚 (Central Asia)</option>
                   <option value="Middle East">中东 (Middle East)</option>
                 </select>
@@ -255,7 +257,7 @@
                   id="metricTotalOrgs"
                   class="mt-1 text-3xl font-bold text-slate-50"
                 >
-                  204
+                  203
                 </p>
                 <p class="mt-0.5 text-[11px] text-slate-500">
                   覆盖多个区域与主题领域
@@ -343,100 +345,113 @@
             <article
               class="dashboard-card col-span-12 lg:col-span-6 rounded-3xl bg-slate-900/70 border border-slate-800"
             >
-              <header class="flex items-center justify-between mb-2.5">
-                <div>
-                  <h2 class="text-sm font-semibold text-slate-100">
-                    总部区域分布
-                    <span
-                      id="hqRegionSummarySpan"
-                      class="text-[11px] font-normal text-slate-400"
-                    >
-                      (加载中...)
-                    </span>
-                  </h2>
-                  <p class="mt-0.5 text-[11px] text-slate-500">
-                    按总部所在区域统计机构数量，用于判断区域聚集度。
-                  </p>
-                </div>
+              <header class="mb-2.5">
+                <h2 class="text-sm font-semibold text-slate-100">
+                  总部区域分布
+                </h2>
               </header>
               <div class="h-56">
                 <canvas id="hqRegionChart"></canvas>
               </div>
               <!-- 大洲点击区：触发侧边抽屉展示 205 家机构 -->
               <div
-                class="mt-3 flex flex-wrap gap-2 text-[11px]"
+                class="mt-3 grid grid-cols-4 gap-2 text-[11px]"
                 id="continentChips"
               >
                 <button
                   id="Europe"
                   data-continent-key="Europe"
-                  class="continent-chip inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors"
+                  class="continent-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors text-left"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full bg-brand-400"></span>
-                  <span>欧洲 Europe</span>
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400"></span>
+                  <span class="flex flex-col leading-tight">
+                    <span>欧洲</span>
+                    <span class="text-[10px] text-slate-400">Europe</span>
+                  </span>
                 </button>
 
                 <button
                   id="Asia"
                   data-continent-key="Asia"
-                  class="continent-chip inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors"
+                  class="continent-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors text-left"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-                  <span>亚洲 Asia</span>
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400"></span>
+                  <span class="flex flex-col leading-tight">
+                    <span>亚洲</span>
+                    <span class="text-[10px] text-slate-400">Asia</span>
+                  </span>
                 </button>
 
                 <button
                   id="NorthAmerica"
                   data-continent-key="North America"
-                  class="continent-chip inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors"
+                  class="continent-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors text-left"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full bg-amber-300"></span>
-                  <span>北美 North America</span>
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300"></span>
+                  <span class="flex flex-col leading-tight">
+                    <span>北美</span>
+                    <span class="text-[10px] text-slate-400">North America</span>
+                  </span>
                 </button>
 
                 <button
                   id="SouthAmerica"
                   data-continent-key="South America"
-                  class="continent-chip inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors"
+                  class="continent-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors text-left"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full bg-cyan-300"></span>
-                  <span>南美 South America</span>
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"></span>
+                  <span class="flex flex-col leading-tight">
+                    <span>南美</span>
+                    <span class="text-[10px] text-slate-400">South America</span>
+                  </span>
                 </button>
 
                 <button
                   id="Africa"
                   data-continent-key="Africa"
-                  class="continent-chip inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors"
+                  class="continent-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors text-left"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full bg-orange-400"></span>
-                  <span>非洲 Africa</span>
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400"></span>
+                  <span class="flex flex-col leading-tight">
+                    <span>非洲</span>
+                    <span class="text-[10px] text-slate-400">Africa</span>
+                  </span>
                 </button>
 
                 <button
                   id="Oceania"
                   data-continent-key="Oceania"
-                  class="continent-chip inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors"
+                  class="continent-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors text-left"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full bg-fuchsia-400"></span>
-                  <span>大洋洲 Oceania</span>
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-fuchsia-400"></span>
+                  <span class="flex flex-col leading-tight">
+                    <span>大洋洲</span>
+                    <span class="text-[10px] text-slate-400">Oceania</span>
+                  </span>
                 </button>
 
                 <button
                   id="CentralAsia"
                   data-continent-key="Central Asia"
-                  class="continent-chip inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors"
+                  class="continent-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors text-left"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full bg-rose-400"></span>
-                  <span>中亚 Central Asia</span>
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-rose-400"></span>
+                  <span class="flex flex-col leading-tight">
+                    <span>中亚</span>
+                    <span class="text-[10px] text-slate-400">Central Asia</span>
+                  </span>
                 </button>
 
                 <button
                   id="MiddleEast"
                   data-continent-key="Middle East"
-                  class="continent-chip inline-flex items-center gap-1 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors"
+                  class="continent-chip inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-200 hover:border-brand-400 hover:bg-brand-500/20 transition-colors text-left"
                 >
-                  <span class="h-1.5 w-1.5 rounded-full bg-violet-400"></span>
-                  <span>中东 Middle East</span>
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-pink-400"></span>
+                  <span class="flex flex-col leading-tight">
+                    <span>中东</span>
+                    <span class="text-[10px] text-slate-400">Middle East</span>
+                  </span>
                 </button>
               </div>
             </article>
@@ -449,9 +464,6 @@
                 <h2 class="text-sm font-semibold text-slate-100">
                   存续状态分布
                 </h2>
-                <p class="mt-0.5 text-[11px] text-slate-500">
-                  展示当前样本中正常运营与需预警机构的占比情况。
-                </p>
               </header>
               <!-- 上方：圆环图 -->
               <div class="flex justify-center">
@@ -470,7 +482,13 @@
                     机构可稳定开展项目合作，沟通渠道顺畅，官网与披露信息持续更新。
                   </p>
                 </div>
-                <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 px-3 py-2.5">
+                <div
+                  id="statusLegendWarning"
+                  role="button"
+                  tabindex="0"
+                  class="rounded-xl bg-slate-800/60 border border-slate-700/60 px-3 py-2.5 cursor-pointer hover:border-rose-400/50 hover:bg-slate-800/80 transition-colors focus:outline-none focus:ring-1 focus:ring-rose-400/50"
+                  aria-label="点击查看需预警机构详情"
+                >
                   <div class="flex items-center gap-2">
                     <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
                     <span class="text-[11px] font-medium text-slate-200">需预警 / 待核查</span>
@@ -505,16 +523,22 @@
                 </div>
               </header>
               <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-12 md:col-span-6 h-52">
+                <div class="col-span-12 md:col-span-6">
                   <h3
                     class="text-[11px] font-medium text-slate-300 mb-1.5 flex items-center justify-between"
                   >
                     <span>机构性质分布</span>
                     <span class="text-slate-500 text-[10px]">按法律身份</span>
                   </h3>
-                  <canvas id="orgNatureChart"></canvas>
+                  <div class="h-52">
+                    <canvas id="orgNatureChart"></canvas>
+                  </div>
+                  <p id="orgNatureHighestNote" class="mt-1 text-[10px] text-slate-500"></p>
+                  <p class="mt-0.5 text-[10px] text-slate-500">
+                    “其他”：未归入以上五类法律身份/本质属性的机构（如政府间组织、营利性企业、社会企业等）。
+                  </p>
                 </div>
-                <div class="col-span-12 md:col-span-6 h-52">
+                <div class="col-span-12 md:col-span-6">
                   <h3
                     class="text-[11px] font-medium text-slate-300 mb-1.5 flex items-center justify-between"
                   >
@@ -523,10 +547,310 @@
                       >按合作角色</span
                     >
                   </h3>
-                  <canvas id="functionTypeChart"></canvas>
+                  <div class="h-52">
+                    <canvas id="functionTypeChart"></canvas>
+                  </div>
+                  <p id="functionTypeHighestNote" class="mt-1 text-[10px] text-slate-500"></p>
+                  <p class="mt-0.5 text-[10px] text-slate-500">
+                    “其他”：不完全符合以上任一主功能的少数特殊机制（如特定平台、代表处等）。
+                  </p>
                 </div>
               </div>
             </article>
+
+            <!-- 模块 2.5：议题关注词云（3D 球形 · 嵌入片段） -->
+            <!--
+              ============================================================
+              3D 球形词云 · 嵌入片段
+              使用方法：把下面整个 <div id="sphere-wordcloud-root">
+              以及底部的 <script> 标签，粘贴到你的 index.html
+              想放的位置即可，无需安装任何依赖。
+              ============================================================
+            -->
+            <div id="sphere-wordcloud-root" class="col-span-12" style="width:100%;max-width:100%;box-sizing:border-box;"></div>
+
+            <!-- CANGO 议题共现热力图（MECE清洗版） -->
+            <div id="cango-heatmap-root" class="col-span-12" style="width:100%;max-width:100%;box-sizing:border-box;"></div>
+
+            <!-- 议题共现热力图脚本（须紧接在 #cango-heatmap-root 后，保证 DOMContentLoaded 时 runHeatmap 已定义） -->
+            <script>
+(function () {
+  window.runHeatmap = runHeatmap;
+  function runHeatmap() {
+  const root = document.getElementById("cango-heatmap-root");
+  if (!root) { console.error("[Heatmap] 找不到 #cango-heatmap-root"); return; }
+
+  const TOPICS = [
+    "气候与生态环境","社区发展与减贫","教育与能力建设","可持续发展目标",
+    "人权与法治治理","性别平等与妇女赋权","健康与公共卫生","食品安全与农业",
+    "人道援助与灾害风险","公民社会与全球治理","数字技术与创新","国际合作与青年发展",
+  ];
+  const SHORT = [
+    "气候生态","社区减贫","教育建设","SDG目标",
+    "人权法治","性别平等","公共卫生","食品农业",
+    "人道援助","公民治理","数字技术","国际合作",
+  ];
+  const MATRIX = [
+    [75,18, 9,30,14, 8, 4,10, 2,14, 8, 5],
+    [18,77,26,13,13,18,14, 8,16, 9, 1, 9],
+    [ 9,26,71,23,13, 8,12, 1, 2,19, 4,19],
+    [30,13,23,68,16, 4, 3, 4, 1,15, 8,14],
+    [14,13,13,16,53, 6, 3, 2, 5,15, 1, 5],
+    [ 8,18, 8, 4, 6,35, 5, 0, 7, 4, 0, 6],
+    [ 4,14,12, 3, 3, 5,25, 1, 6, 0, 0, 1],
+    [10, 8, 1, 4, 2, 0, 1,15, 2, 0, 0, 0],
+    [ 2,16, 2, 1, 5, 7, 6, 2,24, 1, 0, 6],
+    [14, 9,19,15,15, 4, 0, 0, 1,52, 3,11],
+    [ 8, 1, 4, 8, 1, 0, 0, 0, 0, 3,14, 0],
+    [ 5, 9,19,14, 5, 6, 1, 0, 6,11, 0,41],
+  ];
+  const MECE_NOTE = {
+    "气候与生态环境":     "合并27个标签：环境与气候变化、气候变化、气候行动、生物多样性保护、能源转型、绿色金融等",
+    "社区发展与减贫":     "合并13个标签：社区发展与减贫、社区发展、减贫、农村发展、生计支持、地方治理等",
+    "教育与能力建设":     "合并12个标签：教育与能力建设、能力建设、教育与科研、技能培训、组织发展等",
+    "可持续发展目标":     "保留独立：可持续发展目标推进（SDG跨领域框架，单独成类）",
+    "人权与法治治理":     "合并19个标签：人权与社会正义、法治与民主治理、民主治理、政策倡导、和平建设等",
+    "性别平等与妇女赋权": "合并13个标签：性别平等与多样性、性别平等、女性赋权、妇女权利、社会包容等",
+    "健康与公共卫生":     "合并3个标签：健康与公共卫生、健康与WASH、人口健康",
+    "食品安全与农业":     "合并3个标签：食品安全与可持续农业、粮食安全、食品安全与生计恢复",
+    "人道援助与灾害风险": "合并3个标签：灾害风险与人道援助、人道援助与灾害风险、人道事务",
+    "公民社会与全球治理": "合并16个标签：公民社会参与与全球治理、全球治理、公益生态系统建设、企业社会责任等",
+    "数字技术与创新":     "合并4个标签：数字技术与治理创新、数字与人工智能、科技研发、社会创新",
+    "国际合作与青年发展": "合并27个标签：发展合作与援助有效性、国际交流与合作、青年发展系列、经济发展系列等",
+  };
+
+  function offColor(v, max) {
+    if (v === 0) return "#0B1525";
+    var t = Math.pow(v / max, 0.7);
+    return "rgb("+Math.round(5+t*20)+","+Math.round(60+t*152)+","+Math.round(90+t*122)+")";
+  }
+  function diagColor(v, max) {
+    if (v === 0) return "#0B1525";
+    var t = Math.pow(v / max, 0.7);
+    return "rgb("+Math.round(90+t*80)+","+Math.round(50+t*40)+","+Math.round(180+t*55)+")";
+  }
+
+  var N = TOPICS.length;
+  var maxOff = 0, maxDiag = 0;
+  for (var i = 0; i < N; i++) {
+    for (var j = 0; j < N; j++) {
+      if (i === j) { if (MATRIX[i][j] > maxDiag) maxDiag = MATRIX[i][j]; }
+      else          { if (MATRIX[i][j] > maxOff)  maxOff  = MATRIX[i][j]; }
+    }
+  }
+
+  var hoverR = -1, hoverC = -1, pinR = -1, pinC = -1, showMece = false;
+
+  root.innerHTML = "";
+  root.setAttribute("style", "width:100%;display:block;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;background:#080F1E;border-radius:16px;padding:28px 20px 36px;box-sizing:border-box;color:#F1F5F9;user-select:none;");
+
+  var headerDiv = document.createElement("div");
+  headerDiv.style.marginBottom = "18px";
+  headerDiv.innerHTML =
+    '<div style="font-size:11px;color:#38BDF8;letter-spacing:4px;text-transform:uppercase;margin-bottom:5px;">CANGO · 议题共现分析（MECE清洗版）</div>' +
+    '<h2 style="margin:0;font-size:20px;font-weight:900;background:linear-gradient(135deg,#38BDF8,#2DD4BF,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">哪些机构同时关注多个议题？</h2>' +
+    '<p style="margin:8px 0 10px;font-size:12px;color:#64748B;max-width:600px;line-height:1.7;">原始 <b style="color:#94A3B8">157</b> 个议题标签经 MECE 原则合并为 <b style="color:#38BDF8">12 个互斥类别</b>。格子数字 = 同时关注两个议题的机构数，<span style="color:#A78BFA">紫色对角线</span> = 该类别总机构数。悬停查看详情，点击固定。</p>';
+  var meceBtn = document.createElement("button");
+  meceBtn.textContent = "▸ 展开 MECE 清洗说明";
+  meceBtn.setAttribute("style", "background:rgba(255,255,255,0.04);border:1px solid #1E293B;border-radius:8px;padding:5px 14px;color:#64748B;font-size:12px;cursor:pointer;font-family:inherit;transition:all 0.2s;");
+  headerDiv.appendChild(meceBtn);
+  root.appendChild(headerDiv);
+
+  var meceBox = document.createElement("div");
+  meceBox.setAttribute("style", "display:none;margin-bottom:18px;background:rgba(255,255,255,0.02);border:1px solid #1E293B;border-radius:12px;padding:16px 20px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;");
+  TOPICS.forEach(function(t) {
+    var item = document.createElement("div");
+    item.setAttribute("style", "display:flex;gap:8px;align-items:flex-start;");
+    item.innerHTML = '<div style="width:6px;height:6px;border-radius:2px;background:#38BDF8;margin-top:4px;flex-shrink:0;"></div><div><div style="font-size:12px;font-weight:700;color:#CBD5E1;">'+t+'</div><div style="font-size:10px;color:#475569;line-height:1.5;">'+MECE_NOTE[t]+'</div></div>';
+    meceBox.appendChild(item);
+  });
+  root.appendChild(meceBox);
+
+  meceBtn.addEventListener("click", function() {
+    showMece = !showMece;
+    meceBox.style.display = showMece ? "grid" : "none";
+    meceBtn.textContent = showMece ? "▾ 收起 MECE 清洗说明" : "▸ 展开 MECE 清洗说明";
+    meceBtn.style.color = showMece ? "#38BDF8" : "#64748B";
+    meceBtn.style.background = showMece ? "rgba(56,189,248,0.15)" : "rgba(255,255,255,0.04)";
+    meceBtn.style.borderColor = showMece ? "#38BDF8" : "#1E293B";
+  });
+
+  var mainRow = document.createElement("div");
+  mainRow.setAttribute("style", "display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;");
+  root.appendChild(mainRow);
+
+  var mapWrap = document.createElement("div");
+  mapWrap.setAttribute("style", "overflow-x:auto;flex-shrink:0;");
+  mainRow.appendChild(mapWrap);
+
+  var CELL = 42, LABEL_W = 114;
+
+  var colHead = document.createElement("div");
+  colHead.setAttribute("style", "display:flex;margin-left:"+LABEL_W+"px;");
+  SHORT.forEach(function(s) {
+    var d = document.createElement("div");
+    d.className = "hm-col-label";
+    d.textContent = s;
+    d.setAttribute("style", "width:"+CELL+"px;font-size:9px;color:#475569;text-align:center;transform:rotate(-38deg) translateX(5px);transform-origin:bottom left;height:65px;display:flex;align-items:flex-end;line-height:1.25;padding-bottom:2px;transition:color 0.15s;");
+    colHead.appendChild(d);
+  });
+  mapWrap.appendChild(colHead);
+
+  var cellEls = [];
+  for (var ri = 0; ri < N; ri++) {
+    (function(i) {
+      var rowDiv = document.createElement("div");
+      rowDiv.setAttribute("style", "display:flex;align-items:center;margin-bottom:2px;");
+      var lbl = document.createElement("div");
+      lbl.className = "hm-row-label";
+      lbl.setAttribute("data-row", i);
+      lbl.textContent = TOPICS[i];
+      lbl.setAttribute("style", "width:"+(LABEL_W-8)+"px;font-size:11px;text-align:right;padding-right:8px;color:#64748B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;transition:color 0.15s;");
+      rowDiv.appendChild(lbl);
+      cellEls[i] = [];
+      for (var ci = 0; ci < N; ci++) {
+        (function(j) {
+          var val = MATRIX[i][j];
+          var isDiag = (i === j);
+          var bg = isDiag ? diagColor(val, maxDiag) : offColor(val, maxOff);
+          var txThreshold = isDiag ? maxDiag * 0.38 : maxOff * 0.38;
+          var txCol = val > txThreshold ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.38)";
+          var cell = document.createElement("div");
+          cell.textContent = val > 0 ? val : "·";
+          cell.setAttribute("style",
+            "width:"+(CELL-2)+"px;height:"+(CELL-2)+"px;margin:1px;" +
+            "background:"+bg+";border:1px solid transparent;border-radius:5px;" +
+            "display:flex;align-items:center;justify-content:center;" +
+            "font-size:"+(val > 9 ? 12 : 11)+"px;font-weight:700;color:"+txCol+";" +
+            "cursor:pointer;transition:transform 0.1s,border 0.1s,opacity 0.12s;position:relative;z-index:1;");
+          cell.addEventListener("mouseenter", function() { hoverR = i; hoverC = j; updateHL(); });
+          cell.addEventListener("mouseleave", function() { hoverR = -1; hoverC = -1; updateHL(); });
+          cell.addEventListener("click", function() {
+            if (pinR === i && pinC === j) { pinR = -1; pinC = -1; } else { pinR = i; pinC = j; }
+            updateHL();
+          });
+          rowDiv.appendChild(cell);
+          cellEls[i][j] = cell;
+        })(ci);
+      }
+      mapWrap.appendChild(rowDiv);
+    })(ri);
+  }
+
+  var legendDiv = document.createElement("div");
+  legendDiv.setAttribute("style", "display:flex;gap:18px;margin-top:12px;margin-left:"+LABEL_W+"px;flex-wrap:wrap;align-items:center;");
+  legendDiv.innerHTML =
+    '<div style="display:flex;align-items:center;gap:6px;"><div style="width:10px;height:10px;border-radius:2px;background:#9060C8;"></div><span style="font-size:10px;color:#475569;">对角线 = 该议题机构总数</span></div>' +
+    '<div style="display:flex;align-items:center;gap:2px;">' +
+    [0,0.2,0.45,0.7,1].map(function(t,k){ return '<div style="width:20px;height:10px;border-radius:'+(k===0?"2px 0 0 2px":k===4?"0 2px 2px 0":"0")+';background:'+offColor(Math.round(t*maxOff),maxOff)+';"></div>'; }).join("") +
+    '<span style="font-size:10px;color:#475569;margin-left:5px;">共现 0 → '+maxOff+' 家</span></div>';
+  mapWrap.appendChild(legendDiv);
+
+  var panel = document.createElement("div");
+  panel.setAttribute("style", "flex:1;min-width:200px;max-width:270px;");
+  mainRow.appendChild(panel);
+
+  var detailCard = document.createElement("div");
+  detailCard.setAttribute("style", "background:rgba(255,255,255,0.02);border:1px solid #1E293B;border-radius:12px;padding:16px 18px;min-height:128px;margin-bottom:14px;transition:all 0.2s;");
+  detailCard.innerHTML = '<div style="color:#334155;font-size:12px;line-height:1.8;">悬停格子查看共现详情<br>点击可固定显示<div style="margin-top:10px;font-size:10px;color:#1E3A5A;line-height:1.6;">数据来源：CANGO 海外资源库<br>2026年3月 · 202 家机构<br>MECE 清洗：157 → 12 类</div></div>';
+  panel.appendChild(detailCard);
+
+  var pairs = [];
+  for (var pi = 0; pi < N; pi++) for (var pj = pi+1; pj < N; pj++) if (MATRIX[pi][pj] > 0) pairs.push([pi, pj, MATRIX[pi][pj]]);
+  pairs.sort(function(a,b){ return b[2]-a[2]; });
+
+  var pairList = document.createElement("div");
+  pairList.setAttribute("style", "background:rgba(255,255,255,0.02);border:1px solid #1E293B;border-radius:12px;padding:14px 16px;");
+  var pairHeader = document.createElement("div");
+  pairHeader.setAttribute("style", "font-size:10px;color:#475569;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;");
+  pairHeader.textContent = "共现 Top 10";
+  pairList.appendChild(pairHeader);
+
+  var pairEls = [];
+  pairs.slice(0, 10).forEach(function(pair) {
+    var a = pair[0], b = pair[1], cnt = pair[2];
+    var d = document.createElement("div");
+    d.setAttribute("style", "display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;margin-bottom:2px;cursor:pointer;transition:background 0.15s;");
+    d.innerHTML = '<span style="font-size:14px;font-weight:900;color:#38BDF8;min-width:22px;text-align:right;">'+cnt+'</span><div style="flex:1;font-size:10px;color:#94A3B8;line-height:1.4;">'+SHORT[a]+' <span style="color:#334155">×</span> '+SHORT[b]+'</div><div style="height:3px;border-radius:2px;background:#38BDF8;opacity:0.4;width:'+Math.round((cnt/30)*44)+'px;flex-shrink:0;"></div>';
+    d.addEventListener("mouseenter", function() { hoverR = a; hoverC = b; updateHL(); });
+    d.addEventListener("mouseleave", function() { hoverR = -1; hoverC = -1; updateHL(); });
+    d.addEventListener("click", function() {
+      if (pinR === a && pinC === b) { pinR = -1; pinC = -1; } else { pinR = a; pinC = b; }
+      updateHL();
+    });
+    pairList.appendChild(d);
+    pairEls.push({ el: d, a: a, b: b });
+  });
+  panel.appendChild(pairList);
+
+  function updateHL() {
+    var aR = pinR >= 0 ? pinR : hoverR;
+    var aC = pinC >= 0 ? pinC : hoverC;
+    var has = aR >= 0;
+    for (var ii = 0; ii < N; ii++) {
+      for (var jj = 0; jj < N; jj++) {
+        var c = cellEls[ii][jj];
+        var isPin = (pinR === ii && pinC === jj);
+        var isHov = (hoverR === ii && hoverC === jj);
+        var inLine = has && (aR === ii || aC === jj);
+        c.style.border = isPin ? "2px solid #38BDF8" : isHov ? "1px solid rgba(56,189,248,0.5)" : inLine ? "1px solid rgba(56,189,248,0.18)" : "1px solid transparent";
+        c.style.transform = isHov ? "scale(1.14)" : "scale(1)";
+        c.style.opacity = (has && !inLine && !isPin) ? "0.38" : "1";
+        c.style.zIndex = isHov ? "2" : "1";
+      }
+    }
+    var rowLabels = root.querySelectorAll(".hm-row-label");
+    rowLabels.forEach(function(el) {
+      var r = parseInt(el.getAttribute("data-row"));
+      el.style.color = (has && r === aR) ? "#38BDF8" : "#64748B";
+      el.style.fontWeight = (has && r === aR) ? "700" : "400";
+    });
+    var colLabels = root.querySelectorAll(".hm-col-label");
+    colLabels.forEach(function(el, j) {
+      el.style.color = (has && j === aC) ? "#38BDF8" : "#475569";
+      el.style.fontWeight = (has && j === aC) ? "700" : "400";
+    });
+    pairEls.forEach(function(p) {
+      var act = (hoverR===p.a&&hoverC===p.b)||(hoverR===p.b&&hoverC===p.a)||(pinR===p.a&&pinC===p.b)||(pinR===p.b&&pinC===p.a);
+      p.el.style.background = act ? "rgba(56,189,248,0.08)" : "transparent";
+    });
+    if (!has) {
+      detailCard.style.background = "rgba(255,255,255,0.02)";
+      detailCard.style.borderColor = "#1E293B";
+      detailCard.innerHTML = '<div style="color:#334155;font-size:12px;line-height:1.8;">悬停格子查看共现详情<br>点击可固定显示<div style="margin-top:10px;font-size:10px;color:#1E3A5A;line-height:1.6;">数据来源：CANGO 海外资源库<br>2026年3月 · 202 家机构<br>MECE 清洗：157 → 12 类</div></div>';
+      return;
+    }
+    var val = MATRIX[aR][aC];
+    var isDiag = (aR === aC);
+    detailCard.style.background = "rgba(56,189,248,0.06)";
+    detailCard.style.borderColor = "#38BDF8";
+    if (isDiag) {
+      var pct = Math.round(val / maxDiag * 100);
+      detailCard.innerHTML = '<div style="font-size:10px;color:#A78BFA;font-weight:700;margin-bottom:6px;letter-spacing:1px;">📌 单类别总量</div><div style="font-size:28px;font-weight:900;color:#F1F5F9;">'+val+'<span style="font-size:13px;color:#64748B;margin-left:4px;">家机构</span></div><div style="font-size:13px;font-weight:700;color:#A78BFA;margin:6px 0 8px;">'+TOPICS[aR]+'</div><div style="height:3px;background:#1E293B;border-radius:2px;margin-bottom:6px;"><div style="height:100%;border-radius:2px;background:#A78BFA;width:'+pct+'%;"></div></div><div style="font-size:10px;color:#475569;line-height:1.5;">'+MECE_NOTE[TOPICS[aR]]+'</div>';
+    } else {
+      var pctR = Math.round(val / MATRIX[aR][aR] * 100);
+      var pctC = Math.round(val / MATRIX[aC][aC] * 100);
+      detailCard.innerHTML = '<div style="font-size:10px;color:#38BDF8;font-weight:700;margin-bottom:5px;letter-spacing:1px;">🔗 议题共现</div><div style="font-size:30px;font-weight:900;color:#F1F5F9;">'+val+'<span style="font-size:13px;color:#64748B;margin-left:4px;">家机构</span></div><div style="font-size:11px;color:#64748B;margin:4px 0 8px;">同时关注以下两类议题</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;"><div style="background:rgba(56,189,248,0.1);border-radius:6px;padding:5px 10px;font-size:11px;color:#38BDF8;font-weight:600;">✦ '+TOPICS[aR]+'</div><div style="text-align:center;font-size:10px;color:#334155;">同时关注</div><div style="background:rgba(45,212,191,0.1);border-radius:6px;padding:5px 10px;font-size:11px;color:#2DD4BF;font-weight:600;">✦ '+TOPICS[aC]+'</div></div><div style="display:flex;gap:14px;"><div><div style="font-size:9px;color:#475569;">占「'+SHORT[aR]+'」</div><div style="font-size:13px;font-weight:700;color:#CBD5E1;">'+pctR+'%</div></div><div><div style="font-size:9px;color:#475569;">占「'+SHORT[aC]+'」</div><div style="font-size:13px;font-weight:700;color:#CBD5E1;">'+pctC+'%</div></div></div>';
+    }
+  }
+  } // end runHeatmap
+  if (document.readyState === "complete") {
+    runHeatmap();
+  } else {
+    window.addEventListener("load", function() { runHeatmap(); });
+  }
+})();
+</script>
+
+            <script>
+              document.addEventListener("DOMContentLoaded", function() {
+                if (typeof window.runHeatmap === "function") {
+                  window.runHeatmap();
+                } else {
+                  console.error("[Heatmap] runHeatmap 函数未定义");
+                }
+              });
+            </script>
 
             <!-- 模块 3：成立时间趋势柱状图 -->
             <article
@@ -634,8 +958,8 @@
               <h2 class="text-sm font-semibold text-slate-100">
                 数据校验说明｜总部区域统计
               </h2>
-              <div class="text-[11px] text-emerald-300 font-medium">
-                数据核验状态：已对齐（204 家机构）
+              <div id="dataVerifyStatusText" class="text-[11px] text-emerald-300 font-medium">
+                数据核验状态：已对齐（— 家机构）
               </div>
             </header>
             <div class="overflow-hidden rounded-xl border border-slate-800/80 bg-slate-950/40">
@@ -653,10 +977,10 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-800/70">
+                                                                                                                                                                                                                                        <tbody class="divide-y divide-slate-800/70">
                   <tr>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      欧洲（Europe）
+                      欧洲 (Europe)
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
                       95
@@ -667,18 +991,18 @@
                   </tr>
                   <tr>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      亚洲（Asia）
+                      亚洲 (Asia)
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      66
+                      65
                     </td>
                     <td class="px-3 py-2 text-[11px] text-emerald-300">
-                      66
+                      65
                     </td>
                   </tr>
                   <tr>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      北美洲（North America）
+                      北美洲 (North America)
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
                       28
@@ -689,7 +1013,7 @@
                   </tr>
                   <tr>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      非洲（Africa）
+                      非洲 (Africa)
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
                       4
@@ -700,7 +1024,7 @@
                   </tr>
                   <tr>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      南美洲（South America）
+                      南美洲 (South America)
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
                       4
@@ -711,7 +1035,7 @@
                   </tr>
                   <tr>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      大洋洲（Oceania）
+                      大洋洲 (Oceania)
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
                       3
@@ -722,7 +1046,7 @@
                   </tr>
                   <tr>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      中亚（Central Asia）
+                      中亚 (Central Asia)
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
                       2
@@ -733,7 +1057,7 @@
                   </tr>
                   <tr>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
-                      中东（Middle East）
+                      中东 (Middle East)
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100">
                       2
@@ -747,10 +1071,10 @@
                       合计
                     </td>
                     <td class="px-3 py-2 text-[11px] text-slate-100 font-medium">
-                      204
+                      203
                     </td>
                     <td class="px-3 py-2 text-[11px] text-emerald-300 font-medium">
-                      204
+                      203
                     </td>
                   </tr>
                 </tbody>
@@ -874,6 +1198,45 @@
       </aside>
     </div>
 
+    <!-- 弹窗：待核查机构详情（点击存续状态图红色扇区或「需预警/待核查」图例触发） -->
+    <div
+      id="warningModal"
+      class="fixed inset-0 z-50 hidden"
+      aria-hidden="true"
+    >
+      <div
+        id="warningModalBackdrop"
+        class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+      ></div>
+      <div
+        class="absolute inset-0 flex items-center justify-center p-4 pointer-events-none"
+      >
+        <div
+          id="warningModalPanel"
+          class="pointer-events-auto w-full max-w-lg max-h-[85vh] flex flex-col rounded-2xl border border-rose-400/30 bg-slate-900/95 shadow-2xl"
+          style="box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.2), 0 25px 50px -12px rgba(0, 0, 0, 0.5);"
+        >
+          <header class="flex items-center justify-between px-5 py-4 border-b border-slate-700/80 shrink-0">
+            <h2 class="text-base font-semibold text-slate-50">待核查机构</h2>
+            <button
+              id="warningModalClose"
+              type="button"
+              class="inline-flex items-center justify-center h-8 w-8 rounded-full border border-slate-600/80 bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-slate-50 transition-colors"
+              aria-label="关闭"
+            >
+              ✕
+            </button>
+          </header>
+          <div class="flex-1 min-h-0 px-5 py-4 overflow-y-auto">
+            <ul id="warningModalList" class="space-y-3 text-sm">
+              <!-- 由 JS 填充 -->
+            </ul>
+            <p id="warningModalEmpty" class="hidden text-slate-500 text-center py-6">暂无待核查机构记录。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 业务逻辑脚本：数据 + 图表 + 筛选 -->
     <script>
       // ===========================
@@ -882,87 +1245,70 @@
 
       // 关键指标卡片数据（2026.02 更新：共 204 家机构）
       const summaryMetrics = {
-        totalOrgs: 204,
-        activeOrgs: 190,
+        totalOrgs: 203,
+        activeOrgs: 197,
         regionsCovered: 8,
-        orgsWithBranches: 156,
+        orgsWithBranches: 18,
       };
 
       // 模块 1：总部区域分布（严格按 Excel「总部所在-区域」字段统计，2026.02 更新）
       const regionDistribution = [
         { label: "欧洲 (Europe)", key: "Europe", value: 95, color: "#4F86FF" },
-        { label: "亚洲 (Asia)", key: "Asia", value: 66, color: "#22C55E" },
-        {
-          label: "北美洲 (North America)",
-          key: "North America",
-          value: 28,
-          color: "#EAB308",
-        },
-        {
-          label: "非洲 (Africa)",
-          key: "Africa",
-          value: 4,
-          color: "#F97316",
-        },
-        {
-          label: "南美洲 (South America)",
-          key: "South America",
-          value: 4,
-          color: "#06B6D4",
-        },
-        {
-          label: "大洋洲 (Oceania)",
-          key: "Oceania",
-          value: 3,
-          color: "#A855F7",
-        },
-        {
-          label: "中亚 (Central Asia)",
-          key: "Central Asia",
-          value: 2,
-          color: "#F43F5E",
-        },
-        {
-          label: "中东 (Middle East)",
-          key: "Middle East",
-          value: 2,
-          color: "#8B5CF6",
-        },
+        { label: "亚洲 (Asia)", key: "Asia", value: 65, color: "#22C55E" },
+        { label: "北美洲 (North America)", key: "North America", value: 28, color: "#EAB308" },
+        { label: "非洲 (Africa)", key: "Africa", value: 4, color: "#F97316" },
+        { label: "南美洲 (South America)", key: "South America", value: 4, color: "#06B6D4" },
+        { label: "大洋洲 (Oceania)", key: "Oceania", value: 3, color: "#A855F7" },
+        { label: "中亚 (Central Asia)", key: "Central Asia", value: 2, color: "#F43F5E" },
+        { label: "中东 (Middle East)", key: "Middle East", value: 2, color: "#EC4899" },
       ];
 
       // 存续状态分布（运行正常 vs 需预警，2026.02 更新；172–204 号机构存续状态已核对）
       const statusDistribution = [
-        { label: "正常运营", key: "Active", value: 190, color: "#22C55E" },
-        {
-          label: "需预警 / 待核查",
-          key: "Warning",
-          value: 14,
-          color: "#F97373",
-        },
+      { label: "正常运营", key: "Active", value: 197, color: "#22C55E" },
+      { label: "需预警 / 待核查", key: "Warning", value: 6, color: "#F97373" },
       ];
 
-      // 模块 2：机构性质分布（示例）
+      // 模块 2：机构性质分布（6 个维度，仅中文标注，按占比降序）
       const orgNatureDistribution = [
-        { label: "国际 NGO", key: "International NGO", value: 47 },
-        { label: "本地 NGO", key: "Local NGO", value: 38 },
-        { label: "基金会", key: "Foundation", value: 26 },
-        {
-          label: "研究机构 / 智库",
-          key: "Research Institute",
-          value: 18,
-        },
-        { label: "网络 / 联盟", key: "Network", value: 12 },
+      { label: "非政府组织/社会组织", key: "非政府组织/社会组织", value: 105 },
+      { label: "基金会/信托", key: "基金会/信托", value: 30 },
+      { label: "宗教背景机构", key: "宗教背景机构", value: 21 },
+      { label: "政府背景机构", key: "政府背景机构", value: 18 },
+      { label: "学术/科研机构", key: "学术/科研机构", value: 10 },
+      { label: "其他", key: "其他", value: 19 },
       ];
 
-      // 模块 2：职能类型分布（示例）
+      // 模块 2：职能类型分布（6 个维度，仅中文标注，按占比降序）
       const functionTypeDistribution = [
-        { label: "项目执行方", key: "Implementer", value: 47 },
-        { label: "资金资助方", key: "Donor", value: 26 },
-        { label: "研究与倡导", key: "Research & Advocacy", value: 25 },
-        { label: "能力建设", key: "Capacity Building", value: 16 },
-        { label: "技术支持", key: "Technical Support", value: 12 },
-        { label: "平台与网络", key: "Platform", value: 10 },
-        { label: "其他角色", key: "Other", value: 5 },
+      { label: "网络/平台型机构", key: "网络/平台型机构", value: 51 },
+      { label: "执行实施型", key: "执行实施型", value: 44 },
+      { label: "研究/咨询与能力建设", key: "研究/咨询与能力建设", value: 30 },
+      { label: "资助型机构", key: "资助型机构", value: 29 },
+      { label: "倡导/传播与教育", key: "倡导/传播与教育", value: 22 },
+      { label: "其他", key: "其他", value: 27 },
+      ];
+
+      // 议题关注词云（I/II/III 类议题标签合并，value = 关注频次，用于 3D 球体与底部 Top5 卡片）
+      const issueCloudData = [
+        { name: "可持续发展目标推进", value: 68 },
+        { name: "社区发展与减贫", value: 63 },
+        { name: "环境与气候变化", value: 62 },
+        { name: "教育与能力建设", value: 56 },
+        { name: "人权与社会正义", value: 33 },
+        { name: "数字技术与治理创新", value: 32 },
+        { name: "性别平等与多样性", value: 30 },
+        { name: "发展合作与援助有效性", value: 28 },
+        { name: "灾害风险与人道援助", value: 26 },
+        { name: "健康与公共卫生", value: 24 },
+        { name: "生物多样性保护", value: 22 },
+        { name: "国际交流与合作", value: 20 },
+        { name: "能力建设", value: 19 },
+        { name: "法治与民主治理", value: 17 },
+        { name: "食品安全与可持续农业", value: 15 },
+        { name: "公民社会参与与全球治理", value: 14 },
+        { name: "农村发展", value: 12 },
+        { name: "动物保护与自然资源治理", value: 10 },
       ];
 
       // 标准化大洲中文名 -> regionDistribution.key 映射
@@ -1000,14 +1346,14 @@
       // - 2016–2020：7 家
       // - 2021–2024：2 家
       const foundedYearTrend = [
-        { label: "≤1990", count: 90 },
-        { label: "1991–1995", count: 20 },
-        { label: "1996–2000", count: 21 },
-        { label: "2001–2005", count: 17 },
-        { label: "2006–2010", count: 10 },
-        { label: "2011–2015", count: 6 },
-        { label: "2016–2020", count: 7 },
-        { label: "2021–2024", count: 2 },
+      { label: "≤1990", count: 91 },
+      { label: "1991–1995", count: 21 },
+      { label: "1996–2000", count: 21 },
+      { label: "2001–2005", count: 20 },
+      { label: "2006–2010", count: 12 },
+      { label: "2011–2015", count: 6 },
+      { label: "2016–2020", count: 7 },
+      { label: "2021–2025", count: 2 },
       ];
 
       // 模块 5：机构列表示例（仅为样本，便于前端联调）
@@ -1185,13 +1531,27 @@
 
         document.getElementById("summaryTotalSpan").textContent = totalOrgs;
         document.getElementById("summaryTotalBadge").textContent = totalOrgs;
-        document.getElementById("summaryActiveBadge").textContent = activeOrgs;
+
+        const verifyEl = document.getElementById("dataVerifyStatusText");
+        if (verifyEl) verifyEl.textContent = "数据核验状态：已对齐（" + totalOrgs + " 家机构）";
+
+        const dateEl = document.getElementById("headerUpdateDate");
+        if (dateEl) {
+          const now = new Date();
+          const y = now.getFullYear();
+          const m = String(now.getMonth() + 1).padStart(2, "0");
+          const d = String(now.getDate()).padStart(2, "0");
+          dateEl.textContent = y + "-" + m + "-" + d;
+        }
       }
 
       /**
        * 通用：创建饼图 / 环形图
        * @param {boolean} showLegend - 是否显示图例（设为 false 时可配合自定义图例）
        * @param {Function|null} onClickSegment - 可选的扇区点击回调，入参包含 index/label/value/chart
+       * @param {string[]|null} tooltipExtras - 可选，按扇区索引追加的悬停提示小字（如 ["", "点击查看机构名单"]）
+       * @param {number} borderWidth - 扇区描边宽度（形成间隙感），默认 1
+       * @param {string} borderColor - 扇区描边颜色（与背景一致可形成间隙），默认 "#020617"
        */
       function createDoughnutChart(
         ctx,
@@ -1200,7 +1560,10 @@
         colors,
         cutout = "55%",
         showLegend = true,
-        onClickSegment = null
+        onClickSegment = null,
+        tooltipExtras = null,
+        borderWidth = 1,
+        borderColor = "#020617"
       ) {
         return new Chart(ctx, {
           type: "doughnut",
@@ -1210,8 +1573,8 @@
               {
                 data,
                 backgroundColor: colors,
-                borderWidth: 1,
-                borderColor: "#020617",
+                borderWidth,
+                borderColor,
               },
             ],
           },
@@ -1248,6 +1611,7 @@
                 },
               },
               tooltip: {
+                bodyFont: { size: 11 },
                 callbacks: {
                   label(context) {
                     const label = context.label || "";
@@ -1260,6 +1624,11 @@
                       ? ((value / total) * 100).toFixed(1)
                       : 0;
                     return `${label}: ${value} 家 (${percent}%)`;
+                  },
+                  afterBody(tooltipItems) {
+                    if (!tooltipExtras || !tooltipItems?.length) return [];
+                    const extra = tooltipExtras[tooltipItems[0].dataIndex];
+                    return extra ? extra.split("\n") : [];
                   },
                 },
               },
@@ -1765,9 +2134,15 @@
         );
         drawerBackdropEl.addEventListener("click", closeContinentDrawer);
 
-        // ESC 键关闭
+        // ESC 键关闭（优先关闭弹窗，再关闭抽屉）
         window.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && !drawerEl.classList.contains("hidden")) {
+          if (e.key !== "Escape") return;
+          const warningModalEl = document.getElementById("warningModal");
+          if (warningModalEl && !warningModalEl.classList.contains("hidden")) {
+            closeWarningModal();
+            return;
+          }
+          if (!drawerEl.classList.contains("hidden")) {
             closeContinentDrawer();
           }
         });
@@ -1779,6 +2154,70 @@
           }
           renderDrawerList(currentItemsForDrawer, e.target.value || "");
         });
+      }
+
+      // ===========================
+      // 待核查机构详情弹窗
+      // ===========================
+      function openWarningModal() {
+        const listEl = document.getElementById("warningModalList");
+        const emptyEl = document.getElementById("warningModalEmpty");
+        const modalEl = document.getElementById("warningModal");
+        if (!listEl || !emptyEl || !modalEl) return;
+
+        const orgs = (window.CANGO_DATA && window.CANGO_DATA.orgs) ? window.CANGO_DATA.orgs : [];
+        const warningOrgs = orgs
+          .filter((o) => (o.statusStd || "").toString() === "Warning")
+          .sort((a, b) => (a.title || "").localeCompare(b.title || "", "zh-CN", { sensitivity: "base" }));
+
+        listEl.innerHTML = "";
+        if (warningOrgs.length === 0) {
+          emptyEl.classList.remove("hidden");
+        } else {
+          emptyEl.classList.add("hidden");
+          warningOrgs.forEach((org) => {
+            const li = document.createElement("li");
+            li.className = "rounded-xl border border-slate-700/70 bg-slate-800/50 px-4 py-3";
+            const name = (org.title || "—").toString();
+            const reason = (org.warningReason || "存续状态待核查").toString().trim() || "存续状态待核查";
+            li.innerHTML =
+              '<p class="font-medium text-slate-100 mb-1">' + escapeHtml(name) + "</p>" +
+              '<p class="text-[12px] text-slate-400 leading-relaxed">' + escapeHtml(reason) + "</p>";
+            listEl.appendChild(li);
+          });
+        }
+
+        modalEl.classList.remove("hidden");
+        modalEl.setAttribute("aria-hidden", "false");
+        document.documentElement.classList.add("overflow-hidden");
+        document.body.classList.add("overflow-hidden");
+      }
+
+      function closeWarningModal() {
+        const modalEl = document.getElementById("warningModal");
+        if (!modalEl) return;
+        modalEl.classList.add("hidden");
+        modalEl.setAttribute("aria-hidden", "true");
+        document.documentElement.classList.remove("overflow-hidden");
+        document.body.classList.remove("overflow-hidden");
+      }
+
+      function escapeHtml(s) {
+        const div = document.createElement("div");
+        div.textContent = s;
+        return div.innerHTML;
+      }
+
+      function initWarningModal() {
+        const legendEl = document.getElementById("statusLegendWarning");
+        const closeBtn = document.getElementById("warningModalClose");
+        const backdrop = document.getElementById("warningModalBackdrop");
+        if (legendEl) {
+          legendEl.addEventListener("click", openWarningModal);
+          legendEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openWarningModal(); } });
+        }
+        if (closeBtn) closeBtn.addEventListener("click", closeWarningModal);
+        if (backdrop) backdrop.addEventListener("click", closeWarningModal);
       }
 
       /**
@@ -1874,15 +2313,6 @@
           summaryMetrics.regionsCovered = nonZeroRegions || 8;
         }
 
-        // 更新标题中的说明文案：例如 (Europe 95 / Asia 66 / ...)
-        const span = document.getElementById("hqRegionSummarySpan");
-        if (span) {
-          const parts = regionDistribution.map((entry) => {
-            const shortEn = regionKeyToShortEn[entry.key] || entry.key;
-            return `${shortEn} ${entry.value}`;
-          });
-          span.textContent = `(${parts.join(" / ")})`;
-        }
       }
 
       /**
@@ -1912,7 +2342,7 @@
           }
         );
 
-        // 存续状态环形图
+        // 存续状态环形图（点击红色「需预警/待核查」扇区打开详情弹窗；悬停显示「点击查看机构名单」）
         const statusCtx = document
           .getElementById("statusChart")
           .getContext("2d");
@@ -1922,10 +2352,14 @@
           statusDistribution.map((d) => d.value),
           statusDistribution.map((d) => d.color),
           "65%",
-          false
+          false,
+          function onClickStatusSegment(ev) {
+            if (ev.index === 1) openWarningModal();
+          },
+          [null, "点击区域查看名单"]
         );
 
-        // 机构性质条形图
+        // 机构性质饼图（6 类：NGO/社会组织、宗教、基金会/信托、学术/科研、政府背景、其他）
         const natureCtx = document
           .getElementById("orgNatureChart")
           .getContext("2d");
@@ -1935,6 +2369,11 @@
           orgNatureDistribution.map((d) => d.value),
           "rgba(79,134,255,0.85)"
         );
+        const natureHighest = document.getElementById("orgNatureHighestNote");
+        if (natureHighest && orgNatureDistribution.length) {
+          const top = orgNatureDistribution.reduce((a, b) => (a.value >= b.value ? a : b));
+          natureHighest.textContent = "占比最高：" + top.label;
+        }
 
         // 职能类型条形图
         const functionCtx = document
@@ -1946,6 +2385,11 @@
           functionTypeDistribution.map((d) => d.value),
           "rgba(34,197,94,0.85)"
         );
+        const functionHighest = document.getElementById("functionTypeHighestNote");
+        if (functionHighest && functionTypeDistribution.length) {
+          const top = functionTypeDistribution.reduce((a, b) => (a.value >= b.value ? a : b));
+          functionHighest.textContent = "占比最高：" + top.label;
+        }
 
         // 成立年份柱状图
         const foundedCtx = document
@@ -1970,6 +2414,161 @@
 
         // 初始渲染表格
         renderOrganizationTable();
+
+        // 议题关注词云由底部 sphere-wordcloud-root 脚本渲染
+      }
+
+      /**
+       * 议题关注词云：3D 球体、近大远小、背面半透明、悬停暂停、最大词数滑块、底部 Top5 卡片
+       */
+      function initIssueWordCloud() {
+        const canvasId = "issueWordCloudCanvas";
+        const listId = "issueWordCloudList";
+        const wrapId = "issueWordCloudWrap";
+        const maxInput = document.getElementById("issueCloudMaxWords");
+        const maxValueEl = document.getElementById("issueCloudMaxWordsValue");
+        const listEl = document.getElementById(listId);
+        const wrapEl = document.getElementById(wrapId);
+        if (!listEl || !wrapEl || typeof TagCanvas === "undefined") return;
+
+        let currentMaxWords = 19;
+        const gradients = {
+          ocean: { 0: "#67e8f9", 0.35: "#a78bfa", 0.7: "#c084fc", 1: "#fde047" },
+          warm: { 0: "#f97316", 0.4: "#eab308", 0.7: "#f43f5e", 1: "#fb923c" },
+          mono: { 0: "#94a3b8", 0.5: "#cbd5e1", 1: "#f1f5f9" },
+          freq: { 0: "#64748b", 0.33: "#06b6d4", 0.66: "#a78bfa", 1: "#fde047" },
+        };
+        let currentGradient = gradients.ocean;
+
+        function buildWordList(maxWords) {
+          const slice = issueCloudData.slice(0, Math.min(maxWords, issueCloudData.length));
+          listEl.innerHTML = slice
+            .map(
+              (d) =>
+                `<a href="javascript:void(0)" data-weight="${d.value}">${d.name}</a>`
+            )
+            .join("");
+        }
+
+        function startTagCanvas(initialSpeed) {
+          if (!listEl.innerHTML.trim()) return;
+          const canvasEl = document.getElementById(canvasId);
+          if (canvasEl && wrapEl) {
+            const w = wrapEl.offsetWidth || 800;
+            const h = wrapEl.offsetHeight || 420;
+            canvasEl.width = w;
+            canvasEl.height = h;
+          }
+          try {
+            TagCanvas.Start(canvasId, listId, {
+              shape: "sphere",
+              weight: true,
+              weightFrom: "data-weight",
+              weightSize: 1.2,
+              weightSizeMin: 12,
+              weightSizeMax: 36,
+              textColour: "#67e8f9",
+              weightGradient: currentGradient,
+              minBrightness: 0.15,
+              maxBrightness: 1,
+              depth: 0.98,
+              maxSpeed: 0.06,
+              minSpeed: 0.02,
+              initial: initialSpeed,
+              dragControl: true,
+              decel: 0.92,
+              reverse: false,
+              hideTags: true,
+              shadow: "#0f172a",
+              textFont: "Inter, Microsoft YaHei, sans-serif",
+              zoom: 1,
+              zoomMin: 0.5,
+              zoomMax: 2,
+              wheelZoom: true,
+            });
+          } catch (e) {
+            console.warn("TagCanvas init:", e);
+          }
+        }
+
+        function redraw() {
+          buildWordList(currentMaxWords);
+          startTagCanvas([0.02, -0.01]);
+        }
+
+        maxInput.addEventListener("input", () => {
+          currentMaxWords = parseInt(maxInput.value, 10);
+          maxValueEl.textContent = currentMaxWords;
+          redraw();
+        });
+        maxValueEl.textContent = currentMaxWords;
+
+        wrapEl.addEventListener("mouseenter", () => {
+          try {
+            TagCanvas.Start(canvasId, listId, {
+              shape: "sphere",
+              weight: true,
+              weightFrom: "data-weight",
+              weightSize: 1.2,
+              weightSizeMin: 12,
+              weightSizeMax: 36,
+              textColour: "#67e8f9",
+              weightGradient: currentGradient,
+              minBrightness: 0.15,
+              maxBrightness: 1,
+              depth: 0.98,
+              initial: [0, 0],
+              maxSpeed: 0,
+              minSpeed: 0,
+              dragControl: true,
+              hideTags: true,
+              shadow: "#0f172a",
+              textFont: "Inter, Microsoft YaHei, sans-serif",
+              zoom: 1,
+              zoomMin: 0.5,
+              zoomMax: 2,
+              wheelZoom: true,
+            });
+          } catch (e) {}
+        });
+        wrapEl.addEventListener("mouseleave", () => {
+          redraw();
+        });
+
+        document.querySelectorAll(".issue-cloud-color-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll(".issue-cloud-color-btn").forEach((b) => {
+              b.classList.remove("bg-sky-500/30", "text-sky-200", "border-sky-500/50");
+              b.classList.add("border-slate-600", "text-slate-400");
+            });
+            btn.classList.add("bg-sky-500/30", "text-sky-200", "border-sky-500/50");
+            btn.classList.remove("border-slate-600", "text-slate-400");
+            const mode = btn.getAttribute("data-color-mode");
+            currentGradient = gradients[mode] || gradients.ocean;
+            redraw();
+          });
+        });
+
+        buildWordList(currentMaxWords);
+        startTagCanvas([0.02, -0.01]);
+
+        // 底部 Top5 卡片
+        const top5 = issueCloudData.slice(0, 5);
+        const cardColors = ["#eab308", "#ec4899", "#06b6d4", "#a78bfa", "#f97316"];
+        const container = document.getElementById("issueTop5Cards");
+        if (container) {
+          container.innerHTML = top5
+            .map(
+              (d, i) => `
+          <div class="rounded-xl border border-slate-700/80 bg-slate-800/60 px-3 py-3 flex flex-col items-center text-center">
+            <span class="text-xl font-bold text-slate-100">${d.value}</span>
+            <span class="inline-block w-6 h-6 rounded mt-1" style="background:${cardColors[i]}"></span>
+            <span class="text-[10px] text-slate-400 mt-1 leading-tight">${d.name}</span>
+          </div>
+        `
+            )
+            .join("");
+        }
       }
 
       // DOM 加载完成后初始化：先对齐总数与区域统计，再渲染看板与抽屉交互
@@ -1978,8 +2577,344 @@
         syncRegionDistributionFromData();
         initDashboard();
         initContinentDrawer();
+        initWarningModal();
       });
     </script>
+    <!-- 词云脚本：放到 </body> 之前 -->
+    <script>
+(function() {
+  // ── 数据配置（修改这里换成你自己的词汇）──────────────────────
+  const WORDS = [
+    { text: "环境与气候变化",    value: 68, tier: 1 },
+    { text: "教育与能力建设",    value: 63, tier: 1 },
+    { text: "社区发展与减贫",    value: 58, tier: 1 },
+    { text: "可持续发展目标",    value: 51, tier: 1 },
+    { text: "人权与社会正义",    value: 47, tier: 1 },
+    { text: "健康与公共卫生",    value: 44, tier: 1 },
+    { text: "发展合作与援助",    value: 41, tier: 1 },
+    { text: "灾害风险与人道援助", value: 38, tier: 1 },
+    { text: "性别平等与多样性",  value: 35, tier: 1 },
+    { text: "食品安全与农业",    value: 33, tier: 1 },
+    { text: "国际交流与合作",    value: 30, tier: 1 },
+    { text: "公民社会与治理",    value: 28, tier: 1 },
+    { text: "气候正义",          value: 55, tier: 2 },
+    { text: "妇女赋权",          value: 49, tier: 2 },
+    { text: "SDG推进",           value: 45, tier: 2 },
+    { text: "社会包容",          value: 40, tier: 2 },
+    { text: "生态保护",          value: 37, tier: 2 },
+    { text: "儿童权利",          value: 34, tier: 2 },
+    { text: "移民与难民",        value: 31, tier: 2 },
+    { text: "水资源",            value: 25, tier: 2 },
+    { text: "公平贸易",          value: 22, tier: 2 },
+    { text: "能源转型",          value: 36, tier: 2 },
+    { text: "粮食主权",          value: 27, tier: 2 },
+    { text: "数字技术与创新",    value: 43, tier: 3 },
+    { text: "青年发展",          value: 38, tier: 3 },
+    { text: "城市化",            value: 32, tier: 3 },
+    { text: "民主参与",          value: 29, tier: 3 },
+    { text: "企业社会责任",      value: 26, tier: 3 },
+    { text: "医疗可及性",        value: 24, tier: 3 },
+    { text: "碳中和",            value: 30, tier: 1 },
+  ];
+
+  // ── 颜色配置 ─────────────────────────────────────────────────
+  const COLORS = { 1: "#38BDF8", 2: "#2DD4BF", 3: "#A78BFA" };
+  const TIER_NAME = { 1: "主要议题", 2: "次要议题", 3: "延伸议题" };
+
+  // ── 参数 ──────────────────────────────────────────────────────
+  const RADIUS = 185;
+  const FOV    = 480;
+  const SPEED  = 0.28;  // 旋转速度（调大=转快，调小=转慢）
+  const TOP_N  = 5;     // 底部卡片显示前几名
+
+  // ── 状态 ──────────────────────────────────────────────────────
+  let maxWords  = 28;
+  let rx = 0.3, ry = 0;
+  let paused    = false;
+  let dragging  = false;
+  let dragX0, dragY0, dragRx0, dragRy0;
+  let hoveredWord = null;
+  let lastTime  = null;
+
+  // ── 工具函数 ──────────────────────────────────────────────────
+  function fibSphere(n) {
+    const pts = [], phi = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 0; i < n; i++) {
+      const y = 1 - (i / (n - 1)) * 2;
+      const r = Math.sqrt(1 - y * y);
+      const t = phi * i;
+      pts.push([r * Math.cos(t), y, r * Math.sin(t)]);
+    }
+    return pts;
+  }
+
+  function rotate([x, y, z], rx, ry) {
+    const x1 = x * Math.cos(ry) + z * Math.sin(ry);
+    const z1 = -x * Math.sin(ry) + z * Math.cos(ry);
+    const y2 = y * Math.cos(rx) - z1 * Math.sin(rx);
+    const z2 = y * Math.sin(rx) + z1 * Math.cos(rx);
+    return [x1, y2, z2];
+  }
+
+  // ── DOM 构建 ──────────────────────────────────────────────────
+  const root = document.getElementById("sphere-wordcloud-root");
+  if (!root) return;
+  root.innerHTML = "";
+  root.style.cssText = "width:100%;max-width:760px;margin:0 auto;font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;background:#080F1E;border-radius:16px;padding:28px 20px 32px;box-sizing:border-box;color:#F1F5F9;user-select:none;";
+
+  // 标题
+  const titleWrap = document.createElement("div");
+  titleWrap.style.cssText = "text-align:center;margin-bottom:18px;";
+  titleWrap.innerHTML = `
+    <h2 style="margin:0;font-size:22px;font-weight:900;background:linear-gradient(135deg,#38BDF8,#2DD4BF,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">议题关注词云</h2>
+    <div style="font-size:12px;color:#475569;margin-top:4px;">球面旋转 · 近大远小 · 悬停暂停 · 拖拽转动</div>
+  `;
+  root.appendChild(titleWrap);
+
+  // 滑块栏
+  const sliderWrap = document.createElement("div");
+  sliderWrap.style.cssText = "display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;background:rgba(255,255,255,0.03);border:1px solid #1E293B;border-radius:10px;padding:10px 18px;";
+  sliderWrap.innerHTML = `
+    <span style="font-size:12px;color:#64748B;white-space:nowrap;">最大词数</span>
+    <input id="swc-slider" type="range" min="8" max="${WORDS.length}" value="${maxWords}"
+      style="width:140px;accent-color:#38BDF8;cursor:pointer;">
+    <span id="swc-slider-val" style="font-size:16px;font-weight:800;color:#38BDF8;min-width:24px;text-align:center;">${maxWords}</span>
+    <div style="display:flex;gap:10px;margin-left:4px;">
+      ${[1,2,3].map(t=>`<div style="display:flex;align-items:center;gap:4px;"><div style="width:7px;height:7px;border-radius:2px;background:${COLORS[t]};"></div><span style="font-size:10px;color:#475569;">${TIER_NAME[t]}</span></div>`).join("")}
+    </div>
+  `;
+  root.appendChild(sliderWrap);
+
+  // SVG 画布
+  const svgWrap = document.createElement("div");
+  svgWrap.style.cssText = "position:relative;margin:0 auto;cursor:grab;";
+  root.appendChild(svgWrap);
+
+  const NS = "http://www.w3.org/2000/svg";
+  let W = Math.min(root.offsetWidth - 40, 700);
+  let H = Math.round(W * 0.65);
+  const svg = document.createElementNS(NS, "svg");
+  svg.style.cssText = "display:block;overflow:visible;touch-action:none;";
+  svgWrap.appendChild(svg);
+
+  // Tooltip
+  const tip = document.createElement("div");
+  tip.style.cssText = "position:absolute;display:none;pointer-events:none;background:rgba(8,15,30,0.97);border-radius:10px;padding:10px 14px;z-index:20;min-width:150px;box-shadow:0 4px 20px rgba(0,0,0,0.5);";
+  svgWrap.appendChild(tip);
+
+  // 暂停标签
+  const pauseTag = document.createElement("div");
+  pauseTag.textContent = "⏸ 已暂停";
+  pauseTag.style.cssText = "position:absolute;top:10px;right:10px;display:none;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);border-radius:6px;padding:3px 9px;font-size:10px;color:rgba(56,189,248,0.7);pointer-events:none;";
+  svgWrap.appendChild(pauseTag);
+
+  // Top N 卡片
+  const cardsSection = document.createElement("div");
+  cardsSection.style.cssText = "margin-top:28px;";
+  cardsSection.innerHTML = `<div style="font-size:11px;color:#475569;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;text-align:center;">热度 Top ${TOP_N} 议题</div>`;
+  const cardsRow = document.createElement("div");
+  cardsRow.style.cssText = "display:flex;gap:10px;justify-content:center;flex-wrap:wrap;";
+  cardsSection.appendChild(cardsRow);
+  root.appendChild(cardsSection);
+
+  // 渲染 Top N 卡片（静态，只渲染一次）
+  const topWords = [...WORDS].sort((a,b) => b.value - a.value).slice(0, TOP_N);
+  topWords.forEach((w, i) => {
+    const col = COLORS[w.tier];
+    const pct = Math.round((w.value / topWords[0].value) * 100);
+    const card = document.createElement("div");
+    card.style.cssText = `background:rgba(255,255,255,0.03);border:1px solid #1E293B;border-radius:12px;padding:14px 16px;width:126px;position:relative;overflow:hidden;box-sizing:border-box;transition:all 0.2s;cursor:default;`;
+    card.innerHTML = `
+      <div style="position:absolute;top:8px;right:10px;font-size:10px;font-weight:800;color:${col};opacity:0.5;">#${i+1}</div>
+      <div style="font-size:26px;font-weight:900;color:${col};line-height:1;margin-bottom:4px;">${w.value}</div>
+      <div style="font-size:11px;font-weight:600;color:#CBD5E1;margin-bottom:10px;line-height:1.4;min-height:30px;">${w.text}</div>
+      <div style="height:3px;background:#1E293B;border-radius:2px;">
+        <div class="swc-bar" style="height:100%;border-radius:2px;background:linear-gradient(90deg,${col}99,${col});width:${pct*0.88}%;transition:width 0.35s;"></div>
+      </div>
+      <div style="margin-top:7px;font-size:9px;color:${col};opacity:0.6;font-weight:600;">${TIER_NAME[w.tier]}</div>
+    `;
+    card.addEventListener("mouseenter", () => {
+      card.style.background = `${col}14`;
+      card.style.border = `1px solid ${col}`;
+      card.style.boxShadow = `0 4px 20px ${col}33`;
+      card.querySelector(".swc-bar").style.width = pct + "%";
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.background = "rgba(255,255,255,0.03)";
+      card.style.border = "1px solid #1E293B";
+      card.style.boxShadow = "none";
+      card.querySelector(".swc-bar").style.width = (pct*0.88) + "%";
+    });
+    cardsRow.appendChild(card);
+  });
+
+  // ── 主渲染函数 ────────────────────────────────────────────────
+  function getWords() {
+    return [...WORDS].sort((a,b) => b.value - a.value).slice(0, maxWords);
+  }
+
+  function render() {
+    W = Math.min(root.offsetWidth - 40, 700);
+    H = Math.round(W * 0.65);
+    const r = Math.min(RADIUS, W * 0.27);
+
+    svg.setAttribute("width", W);
+    svg.setAttribute("height", H);
+    svgWrap.style.width = W + "px";
+    svgWrap.style.height = H + "px";
+
+    const words = getWords();
+    const pts   = fibSphere(words.length);
+    const vMin  = Math.min(...words.map(w => w.value));
+    const vMax  = Math.max(...words.map(w => w.value));
+    const fMin  = 10, fMax = Math.min(28, W * 0.042);
+
+    const projected = words.map((word, i) => {
+      const [x3, y3, z3] = rotate(pts[i], rx, ry);
+      const scale   = FOV / (FOV + z3 * r);
+      const px      = W / 2 + x3 * r * scale;
+      const py      = H / 2 + y3 * r * scale;
+      const depth   = (z3 + 1) / 2;
+      const norm    = (word.value - vMin) / (vMax - vMin || 1);
+      const fontSize = (fMin + norm * (fMax - fMin)) * scale * 1.1;
+      const opacity = 0.12 + depth * 0.88;
+      return { ...word, px, py, z3, depth, fontSize, opacity, scale, color: COLORS[word.tier] };
+    }).sort((a, b) => a.z3 - b.z3);
+
+    // 清空 SVG
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    // 赤道装饰环
+    const eq = document.createElementNS(NS, "ellipse");
+    eq.setAttribute("cx", W/2); eq.setAttribute("cy", H/2);
+    eq.setAttribute("rx", r * 0.98); eq.setAttribute("ry", r * 0.11);
+    eq.setAttribute("fill", "none");
+    eq.setAttribute("stroke", "rgba(56,189,248,0.05)");
+    eq.setAttribute("stroke-width", "1");
+    svg.appendChild(eq);
+
+    // 词汇
+    projected.forEach(w => {
+      const isHov = hoveredWord === w.text;
+      const g = document.createElementNS(NS, "g");
+
+      if (isHov) {
+        const tw = w.text.length * w.fontSize * 0.57;
+        const th = w.fontSize * 1.35;
+        const rect = document.createElementNS(NS, "rect");
+        rect.setAttribute("x", w.px - tw/2 - 6);
+        rect.setAttribute("y", w.py - th/2 - 3);
+        rect.setAttribute("width", tw + 12);
+        rect.setAttribute("height", th + 6);
+        rect.setAttribute("rx", 5);
+        rect.setAttribute("fill", w.color + "18");
+        rect.setAttribute("stroke", w.color);
+        rect.setAttribute("stroke-width", "0.8");
+        rect.setAttribute("opacity", w.opacity);
+        g.appendChild(rect);
+      }
+
+      const t = document.createElementNS(NS, "text");
+      t.textContent = w.text;
+      t.setAttribute("x", w.px);
+      t.setAttribute("y", w.py);
+      t.setAttribute("text-anchor", "middle");
+      t.setAttribute("dominant-baseline", "middle");
+      t.setAttribute("font-size", isHov ? w.fontSize * 1.1 : w.fontSize);
+      t.setAttribute("font-weight", w.value > 50 ? 800 : w.value > 35 ? 700 : 500);
+      t.setAttribute("fill", w.color);
+      t.setAttribute("opacity", isHov ? 1 : w.opacity);
+      t.style.cssText = `cursor:pointer;pointer-events:all;${isHov ? `filter:drop-shadow(0 0 6px ${w.color}cc);` : ""}`;
+
+      t.addEventListener("mouseenter", (e) => {
+        hoveredWord = w.text;
+        const maxV = Math.max(...words.map(x => x.value));
+        tip.style.display = "block";
+        tip.style.borderColor = w.color;
+        tip.style.boxShadow = `0 4px 20px ${w.color}44`;
+        tip.innerHTML = `
+          <div style="font-size:14px;font-weight:800;color:${w.color};margin-bottom:5px;">${w.text}</div>
+          <div style="display:flex;gap:16px;">
+            <div><div style="font-size:10px;color:#475569;">关注热度</div><div style="font-size:22px;font-weight:900;color:#F1F5F9;">${w.value}</div></div>
+            <div><div style="font-size:10px;color:#475569;">议题层级</div><div style="font-size:12px;font-weight:700;color:${w.color};">${TIER_NAME[w.tier]}</div></div>
+          </div>
+          <div style="margin-top:8px;height:3px;border-radius:2px;background:#1E293B;">
+            <div style="height:100%;border-radius:2px;background:linear-gradient(90deg,${w.color}88,${w.color});width:${Math.round((w.value/maxV)*100)}%;"></div>
+          </div>
+          <div style="font-size:10px;color:#475569;margin-top:3px;">热度指数 ${Math.round((w.value/maxV)*100)}%</div>
+        `;
+        // 定位 tooltip
+        const tipW = 160;
+        tip.style.left = Math.min(w.px + 14, W - tipW - 4) + "px";
+        tip.style.top  = Math.max(w.py - 70, 4) + "px";
+      });
+
+      t.addEventListener("mouseleave", () => {
+        hoveredWord = null;
+        tip.style.display = "none";
+      });
+
+      g.appendChild(t);
+      svg.appendChild(g);
+    });
+  }
+
+  // ── 动画循环 ──────────────────────────────────────────────────
+  function loop(ts) {
+    if (lastTime === null) lastTime = ts;
+    const dt = (ts - lastTime) / 1000;
+    lastTime = ts;
+    if (!paused && !dragging) {
+      ry += dt * SPEED;
+      rx += dt * SPEED * 0.25;
+    }
+    render();
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // ── 悬停球体暂停 ──────────────────────────────────────────────
+  svgWrap.addEventListener("mouseenter", () => { paused = true;  pauseTag.style.display = "block"; });
+  svgWrap.addEventListener("mouseleave", () => { paused = false; pauseTag.style.display = "none"; hoveredWord = null; tip.style.display = "none"; });
+
+  // ── 拖拽 ──────────────────────────────────────────────────────
+  svgWrap.addEventListener("mousedown", (e) => {
+    dragging = true; svgWrap.style.cursor = "grabbing";
+    dragX0 = e.clientX; dragY0 = e.clientY;
+    dragRx0 = rx; dragRy0 = ry;
+  });
+  window.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+    ry = dragRy0 + (e.clientX - dragX0) * 0.008;
+    rx = dragRx0 + (e.clientY - dragY0) * 0.008;
+  });
+  window.addEventListener("mouseup", () => { dragging = false; svgWrap.style.cursor = "grab"; });
+
+  // 触摸支持
+  let tStart = null;
+  svgWrap.addEventListener("touchstart", (e) => {
+    const t = e.touches[0];
+    tStart = { x: t.clientX, y: t.clientY, rx, ry };
+  }, { passive: true });
+  svgWrap.addEventListener("touchmove", (e) => {
+    if (!tStart) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    ry = tStart.ry + (t.clientX - tStart.x) * 0.008;
+    rx = tStart.rx + (t.clientY - tStart.y) * 0.008;
+  }, { passive: false });
+  svgWrap.addEventListener("touchend", () => { tStart = null; });
+
+  // ── 滑块 ──────────────────────────────────────────────────────
+  document.getElementById("swc-slider").addEventListener("input", function() {
+    maxWords = parseInt(this.value);
+    document.getElementById("swc-slider-val").textContent = maxWords;
+  });
+
+  // ── 响应式 ────────────────────────────────────────────────────
+  window.addEventListener("resize", render);
+})();
+</script>
   </body>
 </html>
 
