@@ -34,7 +34,7 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CANGO 海外资源库数据分析看板</title>
+    <title>CANGO 海外资源库看板</title>
 
     <!-- 字体：Inter，用于英文；中文使用微软雅黑 / 系统中文字体 -->
     <link
@@ -86,6 +86,29 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- 预嵌入的 CANGO 机构数据（由脚本从 JSON 转换而来） -->
     <script src="cango-data-lite.js"></script>
+
+    <!-- 全局视觉优化样式（在 Tailwind 之上做轻量覆盖） -->
+    <style>
+      body {
+        line-height: 1.6;
+        letter-spacing: 0.5px;
+      }
+
+      p,
+      li,
+      td,
+      th,
+      small,
+      span {
+        line-height: 1.6;
+      }
+
+      /* 统一卡片风格，增加圆角与内边距，营造“留白感” */
+      .dashboard-card {
+        border-radius: 12px;
+        padding: 24px;
+      }
+    </style>
   </head>
 
   <body class="bg-slate-950 text-slate-50 font-sans">
@@ -99,7 +122,7 @@
         >
           <div>
             <h1 class="text-2xl lg:text-3xl font-semibold tracking-tight">
-              CANGO 海外资源库数据分析看板
+              CANGO 海外资源库看板
             </h1>
             <!-- 保留一个仅供脚本更新的隐藏总数元素，避免空节点导致 JS 报错 -->
             <span id="summaryTotalSpan" class="hidden">204</span>
@@ -215,22 +238,22 @@
         </section>
 
         <!-- 指标卡片 -->
-        <section class="px-8 pt-5">
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <section class="px-8 pt-6">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
             <!-- 总机构数 -->
             <article
-              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
+              class="dashboard-card relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
             >
               <div class="absolute inset-0 opacity-60">
                 <div
                   class="absolute -top-8 -right-8 h-20 w-20 rounded-full bg-brand-500/20 blur-2xl"
                 ></div>
               </div>
-              <div class="relative px-4 py-3.5">
+              <div class="relative">
                 <p class="text-[11px] text-slate-400">总机构数</p>
                 <p
                   id="metricTotalOrgs"
-                  class="mt-1 text-xl font-semibold text-slate-50"
+                  class="mt-1 text-3xl font-bold text-slate-50"
                 >
                   204
                 </p>
@@ -242,18 +265,18 @@
 
             <!-- 覆盖区域数 -->
             <article
-              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
+              class="dashboard-card relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
             >
               <div class="absolute inset-0 opacity-60">
                 <div
                   class="absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-cyan-500/25 blur-2xl"
                 ></div>
               </div>
-              <div class="relative px-4 py-3.5">
+              <div class="relative">
                 <p class="text-[11px] text-slate-400">覆盖区域数</p>
                 <p
                   id="metricRegionsCovered"
-                  class="mt-1 text-xl font-semibold text-slate-50"
+                  class="mt-1 text-3xl font-bold text-slate-50"
                 >
                   8
                 </p>
@@ -265,20 +288,20 @@
 
             <!-- 有分支机构的机构数 -->
             <article
-              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
+              class="dashboard-card relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
             >
               <div class="absolute inset-0 opacity-60">
                 <div
                   class="absolute -top-10 -right-6 h-20 w-20 rounded-full bg-emerald-500/25 blur-2xl"
                 ></div>
               </div>
-              <div class="relative px-4 py-3.5">
+              <div class="relative">
                 <p class="text-[11px] text-slate-400">
                   拥有境外 / 在华分支
                 </p>
                 <p
                   id="metricWithBranches"
-                  class="mt-1 text-xl font-semibold text-slate-50"
+                  class="mt-1 text-3xl font-bold text-slate-50"
                 >
                   156
                 </p>
@@ -290,18 +313,18 @@
 
             <!-- 运行正常机构数 -->
             <article
-              class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
+              class="dashboard-card relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-slate-900/40 border border-slate-800"
             >
               <div class="absolute inset-0 opacity-60">
                 <div
                   class="absolute -bottom-10 -right-6 h-20 w-20 rounded-full bg-emerald-400/30 blur-2xl"
                 ></div>
               </div>
-              <div class="relative px-4 py-3.5">
+              <div class="relative">
                 <p class="text-[11px] text-slate-400">运行状态：正常运营</p>
                 <p
                   id="metricActiveOrgs"
-                  class="mt-1 text-xl font-semibold text-emerald-300"
+                  class="mt-1 text-3xl font-bold text-emerald-300"
                 >
                   190
                 </p>
@@ -318,7 +341,7 @@
           <div class="grid grid-cols-12 gap-5">
             <!-- 模块 1：总部区域分布饼图 -->
             <article
-              class="col-span-12 lg:col-span-6 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3 pb-4"
+              class="dashboard-card col-span-12 lg:col-span-6 rounded-3xl bg-slate-900/70 border border-slate-800"
             >
               <header class="flex items-center justify-between mb-2.5">
                 <div>
@@ -418,9 +441,9 @@
               </div>
             </article>
 
-            <!-- 运行状态分布 + 图例与备注 -->
+            <!-- 运行状态分布：上图表 + 下图例横向 + 底部装饰 -->
             <article
-              class="col-span-12 lg:col-span-6 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3 pb-4"
+              class="dashboard-card col-span-12 lg:col-span-6 rounded-3xl bg-slate-900/70 border border-slate-800"
             >
               <header class="mb-2.5">
                 <h2 class="text-sm font-semibold text-slate-100">
@@ -430,36 +453,44 @@
                   展示当前样本中正常运营与需预警机构的占比情况。
                 </p>
               </header>
-              <div class="flex flex-row items-stretch gap-4 min-h-[200px]">
-                <div class="flex-1 min-w-0 flex items-center justify-center">
-                  <canvas id="statusChart" class="max-h-44 w-full"></canvas>
+              <!-- 上方：圆环图 -->
+              <div class="flex justify-center">
+                <div class="w-full max-w-[240px] h-44">
+                  <canvas id="statusChart" class="w-full h-full"></canvas>
                 </div>
-                <div class="flex flex-col justify-center gap-3 w-[140px] shrink-0 border-l border-slate-700/60 pl-4">
-                  <div>
-                    <div class="flex items-center gap-2">
-                      <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                      <span class="text-[11px] text-slate-200">正常运营</span>
-                    </div>
-                    <p class="mt-0.5 text-[10px] text-slate-500 leading-snug">
-                      机构可稳定开展项目合作，沟通渠道顺畅，官网与披露信息持续更新。
-                    </p>
+              </div>
+              <!-- 下方：图例横向排列，每项带背景块 -->
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 px-3 py-2.5">
+                  <div class="flex items-center gap-2">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-medium text-slate-200">正常运营</span>
                   </div>
-                  <div>
-                    <div class="flex items-center gap-2">
-                      <span class="h-2 w-2 rounded-full bg-rose-400"></span>
-                      <span class="text-[11px] text-slate-200">需预警 / 待核查</span>
-                    </div>
-                    <p class="mt-0.5 text-[10px] text-slate-500 leading-snug">
-                      含注册信息变更、官网长期未更新或存续状态不明等，建议合作前做背景复核。
-                    </p>
-                  </div>
+                  <p class="mt-1 text-[10px] text-slate-500 leading-snug">
+                    机构可稳定开展项目合作，沟通渠道顺畅，官网与披露信息持续更新。
+                  </p>
                 </div>
+                <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 px-3 py-2.5">
+                  <div class="flex items-center gap-2">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
+                    <span class="text-[11px] font-medium text-slate-200">需预警 / 待核查</span>
+                  </div>
+                  <p class="mt-1 text-[10px] text-slate-500 leading-snug">
+                    含注册信息变更、官网长期未更新或存续状态不明等，建议合作前做背景复核。
+                  </p>
+                </div>
+              </div>
+              <!-- 底部支撑：装饰线 + 小字提示 -->
+              <div class="mt-4 pt-3 border-t border-slate-700/50">
+                <p class="text-[10px] text-slate-500/80 text-center">
+                  数据同步自资源库，最近更新：2026-03
+                </p>
               </div>
             </article>
 
             <!-- 模块 2：机构性质 / 职能类型条形图 -->
             <article
-              class="col-span-12 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3 pb-4"
+              class="dashboard-card col-span-12 rounded-3xl bg-slate-900/70 border border-slate-800"
             >
               <header
                 class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-2.5"
@@ -499,22 +530,15 @@
 
             <!-- 模块 3：成立时间趋势柱状图 -->
             <article
-              class="col-span-12 rounded-2xl bg-slate-900/70 border border-slate-800 px-4 pt-3 pb-4"
+              class="dashboard-card col-span-12 rounded-3xl bg-slate-900/70 border border-slate-800"
             >
-              <header class="flex items-center justify-between mb-2.5">
-                <div>
-                  <h2 class="text-sm font-semibold text-slate-100">
-                    成立时间趋势（按年份）
-                  </h2>
-                  <p class="mt-0.5 text-[11px] text-slate-500">
-                    观察不同年份成立机构数量的变化趋势，辅助判断合作伙伴代际结构。
-                  </p>
-                </div>
-                <span
-                  class="inline-flex items-center rounded-full bg-slate-800/80 px-2 py-0.5 text-[10px] text-slate-300"
-                >
-                  柱状图
-                </span>
+              <header class="mb-2.5">
+                <h2 class="text-sm font-semibold text-slate-100">
+                  成立时间趋势（按年份）
+                </h2>
+                <p class="mt-0.5 text-[11px] text-slate-500">
+                  观察不同年份成立机构数量的变化趋势，辅助判断合作伙伴代际结构。
+                </p>
               </header>
               <div class="h-52">
                 <canvas id="foundedYearChart"></canvas>
@@ -604,7 +628,7 @@
         <!-- 数据校验说明 / 区域统计结果校验表 -->
         <section class="px-8 pb-8">
           <article
-            class="rounded-2xl bg-slate-900/80 border border-slate-800 px-5 pt-4 pb-5"
+            class="dashboard-card rounded-3xl bg-slate-900/80 border border-slate-800"
           >
             <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-3">
               <div>
@@ -792,7 +816,7 @@
         </header>
 
         <!-- 搜索框 -->
-        <div class="px-5 pt-3 pb-2 border-b border-slate-800">
+        <div class="px-5 pt-4 pb-3 border-b border-slate-800">
           <div class="relative">
             <span
               class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-500"
@@ -822,7 +846,7 @@
               id="drawerSearchInput"
               type="text"
               placeholder="在当前区域内搜索机构名称、地点或简介..."
-              class="w-full bg-slate-900/80 border border-slate-700 text-xs rounded-full pl-7 pr-3 py-1.5 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500"
+              class="w-full bg-slate-900/80 border border-slate-700 text-xs rounded-full pl-7 pr-3 py-2 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500"
             />
           </div>
         </div>
@@ -1173,8 +1197,17 @@
       /**
        * 通用：创建饼图 / 环形图
        * @param {boolean} showLegend - 是否显示图例（设为 false 时可配合自定义图例）
+       * @param {Function|null} onClickSegment - 可选的扇区点击回调，入参包含 index/label/value/chart
        */
-      function createDoughnutChart(ctx, labels, data, colors, cutout = "55%", showLegend = true) {
+      function createDoughnutChart(
+        ctx,
+        labels,
+        data,
+        colors,
+        cutout = "55%",
+        showLegend = true,
+        onClickSegment = null
+      ) {
         return new Chart(ctx, {
           type: "doughnut",
           data: {
@@ -1192,6 +1225,19 @@
             responsive: true,
             maintainAspectRatio: false,
             cutout,
+            onClick(event, elements, chart) {
+              if (!onClickSegment || !elements || !elements.length) return;
+              const first = elements[0];
+              if (first == null || typeof first.index !== "number") return;
+              const index = first.index;
+              const label = chart.data.labels?.[index] ?? "";
+              const value =
+                (chart.data.datasets &&
+                  chart.data.datasets[0] &&
+                  chart.data.datasets[0].data?.[index]) ||
+                0;
+              onClickSegment({ index, label, value, chart });
+            },
             plugins: {
               legend: {
                 display: showLegend,
@@ -1860,7 +1906,16 @@
           regionDistribution.map((d) => d.label),
           regionDistribution.map((d) => d.value),
           regionDistribution.map((d) => d.color),
-          "58%"
+          "58%",
+          true,
+          ({ index }) => {
+            const entry = regionDistribution[index];
+            if (!entry) return;
+            const continentKey = entry.key;
+            if (continentKey) {
+              openContinentDrawer(continentKey);
+            }
+          }
         );
 
         // 存续状态环形图
