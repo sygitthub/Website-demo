@@ -111,7 +111,7 @@
   mapWrap.setAttribute("style", "overflow-x:auto;flex:1;min-width:0;");
   mainRow.appendChild(mapWrap);
 
-  var CELL = 42, LABEL_W = 114;
+  var CELL = 42, LABEL_W = 98;
 
   var colHead = document.createElement("div");
   colHead.setAttribute("style", "display:flex;margin-left:"+LABEL_W+"px;");
@@ -132,8 +132,8 @@
       var lbl = document.createElement("div");
       lbl.className = "hm-row-label";
       lbl.setAttribute("data-row", i);
-      lbl.textContent = TOPICS[i];
-      lbl.setAttribute("style", "width:"+(LABEL_W-8)+"px;font-size:11px;text-align:right;padding-right:8px;color:#64748B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;transition:color 0.15s;");
+      lbl.textContent = SHORT[i];
+      lbl.setAttribute("style", "width:"+(LABEL_W-8)+"px;font-size:11px;text-align:right;padding-right:8px;color:#64748B;white-space:nowrap;flex-shrink:0;transition:color 0.15s;");
       rowDiv.appendChild(lbl);
       cellEls[i] = [];
       for (var ci = 0; ci < N; ci++) {
